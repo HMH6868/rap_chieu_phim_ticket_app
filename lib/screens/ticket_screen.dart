@@ -17,6 +17,13 @@ class _TicketScreenState extends State<TicketScreen> {
   bool _isLoading = true;
   String _filterStatus = 'Tất cả';
 
+  // Format price with thousand separator dots
+  String _formatPrice(double price) {
+    String priceString = price.toStringAsFixed(0);
+    final pattern = RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
+    return priceString.replaceAllMapped(pattern, (Match m) => '${m[1]}.');
+  }
+
   @override
   void initState() {
     super.initState();
@@ -433,14 +440,14 @@ class _TicketScreenState extends State<TicketScreen> {
                         ),
                       ),
                       Text(
-                                            '${ticket.totalAmount.toStringAsFixed(0)} VND',
+                        '${_formatPrice(ticket.totalAmount)} VND',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: primaryColor,
-                                      ),
-                                    ),
-                                  ],
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
