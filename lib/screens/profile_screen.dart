@@ -18,20 +18,21 @@ class ProfileScreen extends StatelessWidget {
     final User? user = authProvider.user;
     final isDark = themeProvider.isDarkMode;
     final primaryColor = Theme.of(context).primaryColor;
+    final statusBarHeight = MediaQuery.of(context).padding.top;
 
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              _buildProfileHeader(context, user, primaryColor),
-              const SizedBox(height: 24),
-              _buildMenuSection(context, primaryColor, isDark),
-              const SizedBox(height: 24),
-              _buildAccountSection(context, themeProvider, authProvider, primaryColor, isDark),
-              const SizedBox(height: 24),
-            ],
-          ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // Add padding for status bar
+            SizedBox(height: statusBarHeight),
+            _buildProfileHeader(context, user, primaryColor),
+            const SizedBox(height: 24),
+            _buildMenuSection(context, primaryColor, isDark),
+            const SizedBox(height: 24),
+            _buildAccountSection(context, themeProvider, authProvider, primaryColor, isDark),
+            const SizedBox(height: 24),
+          ],
         ),
       ),
     );

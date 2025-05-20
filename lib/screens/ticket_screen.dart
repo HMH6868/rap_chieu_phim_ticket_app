@@ -40,95 +40,101 @@ class _TicketScreenState extends State<TicketScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      body: SafeArea(
-        child: _isLoading
-            ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(color: primaryColor),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Đang tải vé của bạn...',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
+      body: _isLoading
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(color: primaryColor),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Đang tải vé của bạn...',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
                     ),
-                  ],
-                ),
-              )
-            : CustomScrollView(
-                slivers: [
-                  // Custom App Bar
-                  SliverAppBar(
-                    floating: true,
-                    pinned: true,
-                    backgroundColor: isDark ? Colors.grey[900] : Colors.white,
-                    elevation: 0,
-                    leading: IconButton(
-                      icon: Icon(
-                        Icons.arrow_back,
-                        color: primaryColor,
-                      ),
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                    title: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Vé của tôi',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: primaryColor,
-                          ),
-                        ),
-                        Text(
-                          '${allTickets.length} vé đã đặt',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                      ],
-                    ),
-                    centerTitle: false,
-                    expandedHeight: 120,
-                    flexibleSpace: FlexibleSpaceBar(
-                      background: Container(
-                        padding: const EdgeInsets.fromLTRB(16, 80, 16, 0),
-                        child: _buildFilterSection(primaryColor, isDark),
-                      ),
-                    ),
-                  ),
-
-                  // Ticket List
-                  SliverPadding(
-                    padding: const EdgeInsets.all(16),
-                    sliver: tickets.isEmpty
-                        ? SliverFillRemaining(
-                            child: _buildEmptyState(primaryColor),
-                          )
-                        : SliverList(
-                            delegate: SliverChildBuilderDelegate(
-                              (context, index) {
-                                final ticket = tickets[index];
-                                return _buildTicketCard(
-                                  context,
-                                  ticket,
-                                  getTicketStatus(ticket),
-                                  primaryColor,
-                                  isDark,
-                                );
-                              },
-                              childCount: tickets.length,
-                            ),
-                          ),
                   ),
                 ],
               ),
-      ),
+            )
+          : CustomScrollView(
+              slivers: [
+                // Custom App Bar with status bar padding
+                SliverAppBar(
+                  floating: true,
+                  pinned: true,
+                  backgroundColor: isDark ? Colors.grey[900] : Colors.white,
+                  elevation: 0,
+                  leading: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: primaryColor,
+                    ),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Vé của tôi',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: primaryColor,
+                        ),
+                      ),
+                      Text(
+                        '${allTickets.length} vé đã đặt',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                    ],
+                  ),
+                  centerTitle: false,
+                  expandedHeight: 120,
+                  // Add top padding to account for status bar
+                  toolbarHeight: kToolbarHeight + MediaQuery.of(context).padding.top,
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: Container(
+                      // Adjust padding to account for status bar
+                      padding: EdgeInsets.fromLTRB(
+                        16, 
+                        80 + MediaQuery.of(context).padding.top, 
+                        16, 
+                        0
+                      ),
+                      child: _buildFilterSection(primaryColor, isDark),
+                    ),
+                  ),
+                ),
+
+                // Ticket List
+                SliverPadding(
+                  padding: const EdgeInsets.all(16),
+                  sliver: tickets.isEmpty
+                      ? SliverFillRemaining(
+                          child: _buildEmptyState(primaryColor),
+                        )
+                      : SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              final ticket = tickets[index];
+                              return _buildTicketCard(
+                                context,
+                                ticket,
+                                getTicketStatus(ticket),
+                                primaryColor,
+                                isDark,
+                              );
+                            },
+                            childCount: tickets.length,
+                          ),
+                        ),
+                ),
+              ],
+            ),
     );
   }
 
