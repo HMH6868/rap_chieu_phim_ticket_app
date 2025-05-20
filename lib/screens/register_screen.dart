@@ -32,6 +32,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
       return;
     }
 
+    // Validate email format
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    if (!emailRegex.hasMatch(email)) {
+      setState(() {
+        _message = 'Email không đúng định dạng';
+        _isError = true;
+      });
+      return;
+    }
+
+    // Validate password length
+    if (password.length < 6) {
+      setState(() {
+        _message = 'Mật khẩu phải có ít nhất 6 ký tự';
+        _isError = true;
+      });
+      return;
+    }
+
     // Check if passwords match
     if (password != confirmPassword) {
       setState(() {
