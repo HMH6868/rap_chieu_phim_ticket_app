@@ -29,7 +29,7 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           children: [
             // Profile header with gradient background
-            _buildProfileHeader(context, user, primaryColor),
+            _buildProfileHeader(context, user, primaryColor, isDark),
             const SizedBox(height: 24),
             _buildMenuSection(context, primaryColor, isDark),
             const SizedBox(height: 24),
@@ -41,19 +41,22 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileHeader(BuildContext context, User? user, Color primaryColor) {
+  Widget _buildProfileHeader(BuildContext context, User? user, Color primaryColor, bool isDark) {
+    final textColor = isDark ? Colors.white : Colors.white;
+    final bgColor = isDark ? const Color(0xFF1E1E1E) : primaryColor;
+    
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: primaryColor,
+        color: bgColor,
         borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(32),
           bottomRight: Radius.circular(32),
         ),
         boxShadow: [
           BoxShadow(
-            color: primaryColor.withOpacity(0.3),
+            color: bgColor.withOpacity(0.3),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),
@@ -68,7 +71,7 @@ class ProfileScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white, width: 3),
+                  border: Border.all(color: textColor, width: 3),
                 ),
                 child: const CircleAvatar(
                   radius: 50,
@@ -83,7 +86,7 @@ class ProfileScreen extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: isDark ? Colors.grey[800] : Colors.white,
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
@@ -106,10 +109,10 @@ class ProfileScreen extends StatelessWidget {
           // User name
           Text(
             user?.email.split('@')[0] ?? 'Tài khoản',
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: textColor,
             ),
           ),
           const SizedBox(height: 8),
@@ -117,7 +120,7 @@ class ProfileScreen extends StatelessWidget {
           // User email
           Text(
             user?.email ?? '',
-            style: const TextStyle(fontSize: 16, color: Colors.white70),
+            style: TextStyle(fontSize: 16, color: textColor.withOpacity(0.7)),
           ),
           const SizedBox(height: 16),
           
@@ -125,7 +128,7 @@ class ProfileScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.9),
+              color: isDark ? Colors.grey[800] : Colors.white.withOpacity(0.9),
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
@@ -230,11 +233,17 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   title: Text(
                     item['title'] as String,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.bold,
+                      color: isDark ? Colors.white : Colors.black87,
                     ),
                   ),
-                  subtitle: Text(item['subtitle'] as String),
+                  subtitle: Text(
+                    item['subtitle'] as String,
+                    style: TextStyle(
+                      color: isDark ? Colors.white70 : Colors.black54,
+                    ),
+                  ),
                   trailing: Icon(
                     Icons.arrow_forward_ios,
                     size: 16,
@@ -315,6 +324,9 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   subtitle: Text(
                     themeProvider.isDarkMode ? 'Đang bật' : 'Đang tắt',
+                    style: TextStyle(
+                      color: isDark ? Colors.white70 : Colors.black54,
+                    ),
                   ),
                   value: themeProvider.isDarkMode,
                   activeColor: primaryColor,
@@ -340,13 +352,19 @@ class ProfileScreen extends StatelessWidget {
                       color: primaryColor,
                     ),
                   ),
-                  title: const Text(
+                  title: Text(
                     'Đổi mật khẩu',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
+                      color: isDark ? Colors.white : Colors.black87,
                     ),
                   ),
-                  subtitle: const Text('Cập nhật mật khẩu mới'),
+                  subtitle: Text(
+                    'Cập nhật mật khẩu mới',
+                    style: TextStyle(
+                      color: isDark ? Colors.white70 : Colors.black54,
+                    ),
+                  ),
                   trailing: Icon(
                     Icons.arrow_forward_ios,
                     size: 16,
@@ -374,6 +392,7 @@ class ProfileScreen extends StatelessWidget {
                   builder: (context) => AlertDialog(
                     title: const Text('Đăng xuất'),
                     content: const Text('Bạn có chắc muốn đăng xuất?'),
+                    backgroundColor: isDark ? const Color(0xFF1E1E1E) : Colors.white,
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(context),

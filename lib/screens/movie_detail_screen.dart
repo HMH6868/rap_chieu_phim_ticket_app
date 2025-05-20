@@ -13,6 +13,8 @@ class MovieDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -26,10 +28,10 @@ class MovieDetailScreen extends StatelessWidget {
                     movie.posterUrl,
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) => Container(
-                      color: Colors.grey[300],
-                      child: const Center(
+                      color: isDark ? Colors.grey[800] : Colors.grey[300],
+                      child: Center(
                         child: Icon(Icons.broken_image,
-                            color: Colors.grey, size: 80),
+                            color: isDark ? Colors.grey[400] : Colors.grey, size: 80),
                       ),
                     ),
                   ),
@@ -81,9 +83,10 @@ class MovieDetailScreen extends StatelessWidget {
               ],
             ),
             leading: IconButton(
-              icon: const CircleAvatar(
-                backgroundColor: Colors.white,
-                child: Icon(Icons.arrow_back, color: Colors.black),
+              icon: CircleAvatar(
+                backgroundColor: isDark ? Colors.grey[800] : Colors.white,
+                child: Icon(Icons.arrow_back, 
+                  color: isDark ? Colors.white : Colors.black),
               ),
               onPressed: () => Navigator.pop(context),
             ),
@@ -98,7 +101,7 @@ class MovieDetailScreen extends StatelessWidget {
                       final isFavorite = snapshot.data ?? false;
                       return IconButton(
                         icon: CircleAvatar(
-                          backgroundColor: Colors.white,
+                          backgroundColor: isDark ? Colors.grey[800] : Colors.white,
                           child: Icon(
                             isFavorite ? Icons.favorite : Icons.favorite_border,
                             color: Colors.red,
@@ -151,7 +154,7 @@ class MovieDetailScreen extends StatelessWidget {
                           style: const TextStyle(fontWeight: FontWeight.bold)),
                       const SizedBox(width: 16),
                       Text(movie.duration,
-                          style: TextStyle(color: Colors.grey[700])),
+                          style: TextStyle(color: isDark ? Colors.grey[400] : Colors.grey[700])),
                     ],
                   ),
                   const SizedBox(height: 16),
@@ -184,13 +187,15 @@ class MovieDetailScreen extends StatelessWidget {
                       'Nguyễn Văn A',
                       'https://randomuser.me/api/portraits/men/32.jpg',
                       'Phim rất hay!',
-                      4.5),
+                      4.5,
+                      isDark),
                   const SizedBox(height: 12),
                   _buildReviewCard(
                       'Trần Thị B',
                       'https://randomuser.me/api/portraits/women/44.jpg',
                       'Cốt truyện hấp dẫn!',
-                      4.0),
+                      4.0,
+                      isDark),
                   const SizedBox(height: 24),
                   const Text('Lịch chiếu',
                       style:
@@ -206,7 +211,7 @@ class MovieDetailScreen extends StatelessWidget {
                       '17:30',
                       '20:00',
                       '22:30'
-                    ].map((time) => _buildTimeChip(time)).toList(),
+                    ].map((time) => _buildTimeChip(time, isDark)).toList(),
                   ),
                   const SizedBox(height: 32),
                   SizedBox(
@@ -241,12 +246,13 @@ class MovieDetailScreen extends StatelessWidget {
   }
 
   Widget _buildReviewCard(
-      String name, String imageUrl, String review, double rating) {
+      String name, String imageUrl, String review, double rating, bool isDark) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey[300]!),
+        border: Border.all(color: isDark ? Colors.grey[700]! : Colors.grey[300]!),
         borderRadius: BorderRadius.circular(12),
+        color: isDark ? Colors.grey[850] : Colors.white,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -285,15 +291,20 @@ class MovieDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTimeChip(String time) {
+  Widget _buildTimeChip(String time, bool isDark) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: isDark ? Colors.grey[800] : Colors.white,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.grey[300]!),
+        border: Border.all(color: isDark ? Colors.grey[700]! : Colors.grey[300]!),
       ),
-      child: Text(time, style: const TextStyle(fontWeight: FontWeight.bold)),
+      child: Text(time, 
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: isDark ? Colors.white : Colors.black87
+        )
+      ),
     );
   }
 }

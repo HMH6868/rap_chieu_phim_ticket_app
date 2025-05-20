@@ -95,10 +95,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final primaryColor = Theme.of(context).primaryColor;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final searchBarBackgroundColor = isDark ? Colors.grey[800] : Colors.grey.withOpacity(0.1);
+    final searchBarShadowColor = isDark ? Colors.black.withOpacity(0.2) : Colors.black.withOpacity(0.05);
+    final textColor = isDark ? Colors.white : Colors.black87;
+    final subTextColor = isDark ? Colors.grey[400] : Colors.grey[600];
+    final emptyIconColor = isDark ? Colors.grey.withOpacity(0.3) : Colors.grey.withOpacity(0.5);
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text("Trang chủ", style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.red,
+        backgroundColor: isDark ? Colors.grey[900] : Colors.red,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,11 +119,11 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
+                color: searchBarBackgroundColor,
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: searchBarShadowColor,
                     blurRadius: 5,
                     offset: const Offset(0, 3),
                   ),
@@ -145,15 +153,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   return TextField(
                     controller: _searchController,
                     focusNode: focusNode,
+                    style: TextStyle(color: textColor),
                     decoration: InputDecoration(
                       hintText: 'Tìm kiếm phim...',
+                      hintStyle: TextStyle(color: subTextColor),
                       prefixIcon: Icon(
                         Icons.search,
-                        color: Theme.of(context).primaryColor,
+                        color: primaryColor,
                       ),
                       suffixIcon: _searchController.text.isNotEmpty
                           ? IconButton(
-                              icon: const Icon(Icons.clear),
+                              icon: Icon(Icons.clear, color: subTextColor),
                               onPressed: () {
                                 _searchController.clear();
                                 _onSearchChanged('');
@@ -171,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                         borderSide: BorderSide(
-                          color: Theme.of(context).primaryColor,
+                          color: primaryColor,
                           width: 2,
                         ),
                       ),
@@ -194,16 +204,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Theme.of(context).primaryColor,
+                    color: primaryColor,
                   ),
                 ),
                 const Spacer(),
                 Text(
                   'Đã chọn: $_selectedGenre',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
-                    color: Colors.grey,
+                    color: subTextColor,
                   ),
                 ),
               ],
@@ -227,8 +237,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ChoiceChip(
                       label: Text(genre),
                       selected: isSelected,
-                      selectedColor: Theme.of(context).primaryColor,
-                      backgroundColor: Colors.grey.withOpacity(0.1),
+                      selectedColor: primaryColor,
+                      backgroundColor: isDark ? Colors.grey[800] : Colors.grey.withOpacity(0.1),
                       elevation: isSelected ? 3 : 0,
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                       shape: RoundedRectangleBorder(
@@ -236,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       onSelected: (_) => _filterByGenre(genre),
                       labelStyle: TextStyle(
-                        color: isSelected ? Colors.white : Colors.black87,
+                        color: isSelected ? Colors.white : isDark ? Colors.white70 : Colors.black87,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -256,16 +266,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Theme.of(context).primaryColor,
+                    color: primaryColor,
                   ),
                 ),
                 const Spacer(),
                 Text(
                   '${_filteredMovies.length} phim',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
-                    color: Colors.grey,
+                    color: subTextColor,
                   ),
                 ),
               ],
@@ -284,15 +294,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             Icon(
                               Icons.movie_filter,
                               size: 64,
-                              color: Colors.grey.withOpacity(0.5),
+                              color: emptyIconColor,
                             ),
                             const SizedBox(height: 16),
-                            const Text(
+                            Text(
                               'Không có phim phù hợp',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.grey,
+                                color: isDark ? Colors.grey[400] : Colors.grey,
                               ),
                             ),
                             const SizedBox(height: 8),
@@ -300,7 +310,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               'Thử tìm với từ khóa khác',
                               style: TextStyle(
                                 fontSize: 14,
-                                color: Colors.grey.withOpacity(0.7),
+                                color: subTextColor,
                               ),
                             ),
                           ],
@@ -340,6 +350,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildShimmerList() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final baseColor = isDark ? Colors.grey[700]! : Colors.grey[300]!;
+    final highlightColor = isDark ? Colors.grey[600]! : Colors.grey[100]!;
+    final cardColor = isDark ? const Color(0xFF1E1E1E) : Colors.white;
+
     return GridView.builder(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -351,11 +366,11 @@ class _HomeScreenState extends State<HomeScreen> {
       itemCount: 6,
       itemBuilder: (context, index) {
         return Shimmer.fromColors(
-          baseColor: Colors.grey[300]!,
-          highlightColor: Colors.grey[100]!,
+          baseColor: baseColor,
+          highlightColor: highlightColor,
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: cardColor,
               borderRadius: BorderRadius.circular(16),
             ),
             child: Column(
@@ -366,7 +381,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   flex: 4,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: cardColor,
                       borderRadius: BorderRadius.circular(16),
                     ),
                   ),
@@ -383,7 +398,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 14,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: cardColor,
                             borderRadius: BorderRadius.circular(4),
                           ),
                         ),
@@ -392,7 +407,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 10,
                           width: 80,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: cardColor,
                             borderRadius: BorderRadius.circular(4),
                           ),
                         ),

@@ -48,6 +48,15 @@ class _MovieCardState extends State<MovieCard>
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final cardColor = isDark ? const Color(0xFF1E1E1E) : Colors.white;
+    final textColor = isDark ? Colors.white : Colors.black;
+    final secondaryTextColor = isDark ? Colors.grey[400] : Colors.grey[600];
+    final shadowColor = isDark 
+        ? Colors.black.withOpacity(0.3) 
+        : Colors.black.withOpacity(0.1);
+    final errorBgColor = isDark ? Colors.grey[700] : Colors.grey[300];
+    
     return GestureDetector(
       onTapDown: _onTapDown,
       onTapUp: _onTapUp,
@@ -60,11 +69,11 @@ class _MovieCardState extends State<MovieCard>
           height: 300,
           width: 180,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: cardColor,
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.1),
+                color: shadowColor,
                 blurRadius: 8,
                 offset: const Offset(0, 4),
               ),
@@ -86,7 +95,7 @@ class _MovieCardState extends State<MovieCard>
                       errorBuilder: (context, error, stackTrace) {
                         return Container(
                           height: 180,
-                          color: Colors.grey[300],
+                          color: errorBgColor,
                           child: const Center(
                             child: Icon(
                               Icons.error_outline,
@@ -111,9 +120,10 @@ class _MovieCardState extends State<MovieCard>
                             const SizedBox(width: 4),
                             Text(
                               widget.movie.rating.toString(),
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12,
+                                color: textColor,
                               ),
                             ),
                           ],
@@ -121,9 +131,10 @@ class _MovieCardState extends State<MovieCard>
                         const SizedBox(height: 8),
                         Text(
                           widget.movie.title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
+                            color: textColor,
                           ),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
@@ -132,7 +143,7 @@ class _MovieCardState extends State<MovieCard>
                         Text(
                           widget.movie.genres.join(', '),
                           style: TextStyle(
-                            color: Colors.grey[600],
+                            color: secondaryTextColor,
                             fontSize: 12,
                           ),
                           maxLines: 1,
@@ -151,7 +162,7 @@ class _MovieCardState extends State<MovieCard>
                   child: GestureDetector(
                     onTap: widget.onFavoriteToggle,
                     child: CircleAvatar(
-                      backgroundColor: Colors.white,
+                      backgroundColor: isDark ? Colors.grey[800] : Colors.white,
                       child: Icon(
                         widget.isFavorite
                             ? Icons.favorite

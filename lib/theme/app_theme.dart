@@ -10,6 +10,12 @@ class AppTheme {
         color: Colors.red,
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.white),
+        foregroundColor: Colors.white,
+        titleTextStyle: TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
       ),
       textTheme: const TextTheme(
         displayLarge: TextStyle(
@@ -33,6 +39,8 @@ class AppTheme {
         primary: Colors.red,
         secondary: Colors.redAccent,
         brightness: Brightness.light,
+        surface: Colors.white,
+        onSurface: Colors.black,
       ),
       chipTheme: ChipThemeData(
         backgroundColor: Colors.grey[200]!,
@@ -44,6 +52,18 @@ class AppTheme {
         secondaryLabelStyle: const TextStyle(color: Colors.white),
         brightness: Brightness.light,
       ),
+      cardColor: Colors.white,
+      dividerColor: Colors.grey[200],
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: Colors.white,
+        selectedItemColor: Colors.red,
+        unselectedItemColor: Colors.grey[600],
+      ),
+      tabBarTheme: TabBarTheme(
+        labelColor: Colors.red,
+        unselectedLabelColor: Colors.grey[600],
+        indicatorColor: Colors.red,
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.red,
@@ -53,6 +73,34 @@ class AppTheme {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         ),
       ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: Colors.red,
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: Colors.red,
+          side: const BorderSide(color: Colors.red),
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        fillColor: Colors.grey[100],
+        filled: true,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: Colors.red),
+        ),
+        labelStyle: const TextStyle(color: Colors.black54),
+        hintStyle: TextStyle(color: Colors.grey[500]),
+      ),
+      iconTheme: const IconThemeData(
+        color: Colors.black54,
+      ), dialogTheme: const DialogThemeData(backgroundColor: Colors.white),
     );
   }
 
@@ -65,6 +113,12 @@ class AppTheme {
         color: Colors.grey[900]!,
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),
+        foregroundColor: Colors.white,
+        titleTextStyle: const TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
       ),
       textTheme: const TextTheme(
         displayLarge: TextStyle(
@@ -89,6 +143,7 @@ class AppTheme {
         secondary: Colors.redAccent,
         brightness: Brightness.dark,
         surface: const Color(0xFF1E1E1E),
+        onSurface: Colors.white,
       ),
       chipTheme: ChipThemeData(
         backgroundColor: Colors.grey[800]!,
@@ -102,6 +157,16 @@ class AppTheme {
       ),
       cardColor: const Color(0xFF1E1E1E),
       dividerColor: Colors.grey[800],
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: Colors.grey[900],
+        selectedItemColor: Colors.red,
+        unselectedItemColor: Colors.grey[400],
+      ),
+      tabBarTheme: TabBarTheme(
+        labelColor: Colors.white,
+        unselectedLabelColor: Colors.grey[400],
+        indicatorColor: Colors.red,
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.red,
@@ -111,6 +176,35 @@ class AppTheme {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         ),
       ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: Colors.red,
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: Colors.red,
+          side: const BorderSide(color: Colors.red),
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        fillColor: Colors.grey[850],
+        filled: true,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: Colors.red),
+        ),
+        labelStyle: const TextStyle(color: Colors.white70),
+        hintStyle: TextStyle(color: Colors.grey[500]),
+      ),
+      // Ensure icon colors are appropriate for dark mode
+      iconTheme: const IconThemeData(
+        color: Colors.white70,
+      ), dialogTheme: const DialogThemeData(backgroundColor: Color(0xFF1E1E1E)),
     );
   }
 

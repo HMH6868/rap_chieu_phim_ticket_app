@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'screens/login_screen.dart';
 import 'screens/search_screen.dart';
@@ -9,14 +10,24 @@ import 'utils/ticket_provider.dart';
 import 'utils/auth_provider.dart';
 import 'utils/favorite_provider.dart';
 
-void main() {
+void main() async {
+  // Ensure Flutter is initialized
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // Create providers
+  final themeProvider = ThemeProvider();
+  final ticketProvider = TicketProvider();
+  final authProvider = AuthProvider();
+  final favoriteProvider = FavoriteProvider();
+  
+  // Run the app
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ThemeProvider()),
-        ChangeNotifierProvider(create: (_) => TicketProvider()),
-        ChangeNotifierProvider(create: (_) => AuthProvider()),
-        ChangeNotifierProvider(create: (_) => FavoriteProvider()),
+        ChangeNotifierProvider<ThemeProvider>.value(value: themeProvider),
+        ChangeNotifierProvider<TicketProvider>.value(value: ticketProvider),
+        ChangeNotifierProvider<AuthProvider>.value(value: authProvider),
+        ChangeNotifierProvider<FavoriteProvider>.value(value: favoriteProvider),
       ],
       child: const MyApp(),
     ),
@@ -29,6 +40,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    
+    // Ensure status bar color matches theme
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: themeProvider.isDarkMode 
+          ? Brightness.light 
+          : Brightness.dark,
+    ));
 
     return MaterialApp(
       title: 'Đặt Vé Xem Phim',

@@ -95,7 +95,7 @@ class _TicketScreenState extends State<TicketScreen> {
                         '${allTickets.length} vé đã đặt',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Colors.grey[600],
+                          color: isDark ? Colors.grey[400] : Colors.grey[600],
                         ),
                       ),
                     ],
@@ -179,7 +179,7 @@ class _TicketScreenState extends State<TicketScreen> {
                   setState(() => _filterStatus = status);
                 },
                 labelStyle: TextStyle(
-                  color: isSelected ? Colors.white : Colors.grey[800],
+                  color: isSelected ? Colors.white : (isDark ? Colors.white70 : Colors.grey[800]),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -194,6 +194,8 @@ class _TicketScreenState extends State<TicketScreen> {
     final message = _filterStatus == 'Tất cả'
         ? 'Bạn chưa đặt vé nào'
         : 'Không có vé $_filterStatus';
+    
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Center(
       child: Column(
@@ -202,15 +204,15 @@ class _TicketScreenState extends State<TicketScreen> {
           Icon(
             Icons.confirmation_number_outlined,
             size: 80,
-            color: Colors.grey.withOpacity(0.5),
+            color: isDark ? Colors.grey[400] : Colors.grey.withOpacity(0.5),
           ),
           const SizedBox(height: 16),
           Text(
             message,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: Colors.grey,
+              color: isDark ? Colors.grey[300] : Colors.grey,
             ),
           ),
           const SizedBox(height: 8),
@@ -218,7 +220,7 @@ class _TicketScreenState extends State<TicketScreen> {
             'Khi bạn đặt vé, chúng sẽ hiển thị ở đây',
             style: TextStyle(
               fontSize: 14,
-              color: Colors.grey.withOpacity(0.7),
+              color: isDark ? Colors.grey[400] : Colors.grey.withOpacity(0.7),
             ),
           ),
           const SizedBox(height: 24),
@@ -436,7 +438,7 @@ class _TicketScreenState extends State<TicketScreen> {
                         'Tổng tiền',
                         style: TextStyle(
                           fontSize: 12,
-                          color: Colors.grey[600],
+                          color: isDark ? Colors.grey[400] : Colors.grey[600],
                         ),
                       ),
                       Text(
@@ -485,7 +487,7 @@ class _TicketScreenState extends State<TicketScreen> {
         Icon(
           icon,
           size: 16,
-          color: Colors.grey[600],
+          color: isDark ? Colors.grey[400] : Colors.grey[600],
         ),
         const SizedBox(width: 4),
         Text(
@@ -500,6 +502,8 @@ class _TicketScreenState extends State<TicketScreen> {
   }
 
   Future<void> _confirmCancelTicket(BuildContext context, Ticket ticket) async {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
@@ -518,6 +522,7 @@ class _TicketScreenState extends State<TicketScreen> {
             Text('Giờ chiếu: ${ticket.dateTime.hour}:${ticket.dateTime.minute.toString().padLeft(2, '0')}'),
           ],
         ),
+        backgroundColor: isDark ? const Color(0xFF1E1E1E) : Colors.white,
         actions: [
           TextButton(
             child: const Text('HUỶ BỎ'),
