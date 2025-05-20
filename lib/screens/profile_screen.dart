@@ -18,14 +18,17 @@ class ProfileScreen extends StatelessWidget {
     final User? user = authProvider.user;
     final isDark = themeProvider.isDarkMode;
     final primaryColor = Theme.of(context).primaryColor;
-    final statusBarHeight = MediaQuery.of(context).padding.top;
 
     return Scaffold(
+      appBar: AppBar(
+        // title: const Text('Trang cá nhân'),
+        // backgroundColor: primaryColor,
+        elevation: 0,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Add padding for status bar
-            SizedBox(height: statusBarHeight),
+            // Profile header with gradient background
             _buildProfileHeader(context, user, primaryColor),
             const SizedBox(height: 24),
             _buildMenuSection(context, primaryColor, isDark),
@@ -43,14 +46,7 @@ class ProfileScreen extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            primaryColor.withOpacity(0.8),
-            primaryColor,
-          ],
-        ),
+        color: primaryColor,
         borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(32),
           bottomRight: Radius.circular(32),
