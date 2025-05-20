@@ -54,6 +54,13 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
     });
   }
 
+  // Format price with thousand separator dots
+  String _formatPrice(double price) {
+    String priceString = price.toStringAsFixed(0);
+    final pattern = RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
+    return priceString.replaceAllMapped(pattern, (Match m) => '${m[1]}.');
+  }
+
   @override
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).primaryColor;
@@ -463,7 +470,7 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                         ),
                       ),
                       Text(
-                        '${(_selectedSeats.length * _ticketPrice).toStringAsFixed(0)} VND',
+                        '${_formatPrice(_selectedSeats.length * _ticketPrice)} VND',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: primaryColor,
