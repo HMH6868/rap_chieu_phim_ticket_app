@@ -41,6 +41,7 @@ dependencies:
   intl: ^0.18.1
   shimmer: ^3.0.0
   youtube_player_flutter: ^9.1.1
+  qr_flutter: ^4.1.0
 
 dev_dependencies:
   flutter_test:

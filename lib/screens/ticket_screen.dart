@@ -4,6 +4,7 @@ import '../utils/ticket_provider.dart';
 import '../utils/auth_provider.dart';
 import '../models/ticket.dart';
 import 'main_screen.dart';
+import 'ticket_detail_screen.dart';
 
 class TicketScreen extends StatefulWidget {
   const TicketScreen({super.key});
@@ -231,7 +232,7 @@ class _TicketScreenState extends State<TicketScreen> {
             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               side: BorderSide(color: primaryColor),
-              shape: RoundedRectangleBorder(
+                                shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
@@ -274,184 +275,199 @@ class _TicketScreenState extends State<TicketScreen> {
     final formattedDate = '$day/$month/$year';
     final formattedTime = '$hour:$minute';
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 20),
-      decoration: BoxDecoration(
-        color: isDark ? Colors.grey[850] : Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TicketDetailScreen(ticket: ticket),
           ),
-        ],
-      ),
-      child: Column(
-        children: [
-          // Header with movie info
-          Container(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Movie poster
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    ticket.posterUrl,
-                    width: 70,
-                    height: 100,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        width: 70,
-                        height: 100,
-                        color: Colors.grey[300],
-                        child: const Icon(Icons.broken_image, color: Colors.grey),
-                      );
-                    },
-                  ),
-                ),
-                const SizedBox(width: 16),
-                
-                // Movie info
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        ticket.movieTitle,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: isDark ? Colors.white : Colors.black87,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 8),
-                      _buildInfoItem(
-                        Icons.calendar_today_outlined,
-                        formattedDate,
-                        isDark,
-                      ),
-                      const SizedBox(height: 4),
-                      _buildInfoItem(
-                        Icons.access_time_outlined,
-                        formattedTime,
-                        isDark,
-                      ),
-                      const SizedBox(height: 4),
-                      _buildInfoItem(
-                        Icons.event_seat_outlined,
-                        'Ghế: ${ticket.seats.join(', ')}',
-                        isDark,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+        ).then((cancelled) {
+          // Refresh the list if ticket was cancelled in the detail screen
+          if (cancelled == true) {
+            _loadTickets();
+          }
+        });
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 20),
+        decoration: BoxDecoration(
+          color: isDark ? Colors.grey[850] : Colors.white,
+                                  borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
             ),
-          ),
-          
-          // Dashed divider
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              children: List.generate(
-                40,
-                (index) => Expanded(
-                  child: Container(
-                    height: 1,
-                    color: index % 2 == 0
-                        ? Colors.transparent
-                        : Colors.grey.withOpacity(0.3),
+          ],
+        ),
+                                child: Column(
+                                  children: [
+            // Header with movie info
+                                    Container(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                                      child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                  // Movie poster
+                                          ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                                            child: Image.network(
+                                              ticket.posterUrl,
+                      width: 70,
+                      height: 100,
+                                              fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          width: 70,
+                          height: 100,
+                          color: Colors.grey[300],
+                          child: const Icon(Icons.broken_image, color: Colors.grey),
+                        );
+                      },
+                                            ),
+                                          ),
+                                          const SizedBox(width: 16),
+                  
+                  // Movie info
+                                          Expanded(
+                                            child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  ticket.movieTitle,
+                          style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold,
+                            color: isDark ? Colors.white : Colors.black87,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                                                  ),
+                        const SizedBox(height: 8),
+                        _buildInfoItem(
+                          Icons.calendar_today_outlined,
+                          formattedDate,
+                          isDark,
+                                                ),
+                                                const SizedBox(height: 4),
+                        _buildInfoItem(
+                          Icons.access_time_outlined,
+                          formattedTime,
+                          isDark,
+                                                ),
+                                                const SizedBox(height: 4),
+                        _buildInfoItem(
+                          Icons.event_seat_outlined,
+                          'Ghế: ${ticket.seats.join(', ')}',
+                          isDark,
+                        ),
+                      ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+            
+            // Dashed divider
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: List.generate(
+                  40,
+                  (index) => Expanded(
+                    child: Container(
+                      height: 1,
+                      color: index % 2 == 0
+                          ? Colors.transparent
+                          : Colors.grey.withOpacity(0.3),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          
-          // Footer with status and price
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // Status badge
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: statusColor.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        statusIcon,
-                        size: 16,
-                        color: statusColor,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        status,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
+            
+            // Footer with status and price
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Status badge
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: statusColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          statusIcon,
+                          size: 16,
                           color: statusColor,
                         ),
+                        const SizedBox(width: 4),
+                        Text(
+                          status,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: statusColor,
+                          ),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+                  
+                  // Price
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+                      Text(
+                        'Tổng tiền',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey[600],
+                        ),
                       ),
-                    ],
+                      Text(
+                                            '${ticket.totalAmount.toStringAsFixed(0)} VND',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: primaryColor,
+                                      ),
+                                    ),
+                                  ],
                   ),
-                ),
-                
-                // Price
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      'Tổng tiền',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                    Text(
-                      '${ticket.totalAmount.toStringAsFixed(0)} VND',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: primaryColor,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          
-          // Cancel button
-          if (status == 'Sắp chiếu')
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-              child: OutlinedButton.icon(
-                onPressed: () => _confirmCancelTicket(context, ticket),
-                icon: Icon(Icons.delete_outline, color: Colors.red[700]),
-                label: Text(
-                  'Hủy vé',
-                  style: TextStyle(color: Colors.red[700]),
-                ),
-                style: OutlinedButton.styleFrom(
-                  side: BorderSide(color: Colors.red[700]!),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+            
+            // Cancel button
+            if (status == 'Sắp chiếu')
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                child: OutlinedButton.icon(
+                  onPressed: () => _confirmCancelTicket(context, ticket),
+                  icon: Icon(Icons.delete_outline, color: Colors.red[700]),
+                  label: Text(
+                    'Hủy vé',
+                    style: TextStyle(color: Colors.red[700]),
+                  ),
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide(color: Colors.red[700]!),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
                 ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }
