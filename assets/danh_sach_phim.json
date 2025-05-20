@@ -1,0 +1,660 @@
+[
+  {
+    "id": "001",
+    "title": "Một bộ phim Minecraft",
+    "release_date": "2025-03-31",
+    "overview": "Một bộ phim Minecraft là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2025-03-31, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/wRrGBv4uNofBVyShxfS0iugbcm8.jpg",
+    "vote_average": 6.1,
+    "poster_url": "https://image.tmdb.org/t/p/w500/wRrGBv4uNofBVyShxfS0iugbcm8.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=ZNKX2vGRPMA",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "002",
+    "title": "Vùng Đất Bị Quên Lãng",
+    "release_date": "2025-02-27",
+    "overview": "Vùng Đất Bị Quên Lãng là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2025-02-27, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/iHf6bXPghWB6gT8kFkL1zo00x6X.jpg",
+    "vote_average": 6.2,
+    "poster_url": "https://image.tmdb.org/t/p/w500/iHf6bXPghWB6gT8kFkL1zo00x6X.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=CMyrp5Vk3mU",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "003",
+    "title": "Anh Không Đau",
+    "release_date": "2025-03-12",
+    "overview": "Một người đàn ông không thể cảm nhận nỗi đau thể xác đã biến căn bệnh hiếm gặp của mình thành lợi thế bất ngờ trong cuộc chiến sinh tử để giải cứu cô gái trong mơ.",
+    "poster_path": "/l7KHxP9pxDxkpjMU1CcM8FjE5ON.jpg",
+    "vote_average": 6.9,
+    "poster_url": "https://image.tmdb.org/t/p/w500/l7KHxP9pxDxkpjMU1CcM8FjE5ON.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=99BLnkAlC1M",
+    "genres": [
+      "Chính kịch"
+    ]
+  },
+  {
+    "id": "004",
+    "title": "देवा",
+    "release_date": "2025-01-31",
+    "overview": "देवा là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2025-01-31, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/4wKpglgZYMYpISMdThgdqS1TSQc.jpg",
+    "vote_average": 5.4,
+    "poster_url": "https://image.tmdb.org/t/p/w500/4wKpglgZYMYpISMdThgdqS1TSQc.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=DBCy-fo9eSQ",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "005",
+    "title": "G20",
+    "release_date": "2025-04-09",
+    "overview": "G20 là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2025-04-09, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/tSee9gbGLfqwvjoWoCQgRZ4Sfky.jpg",
+    "vote_average": 6.6,
+    "poster_url": "https://image.tmdb.org/t/p/w500/tSee9gbGLfqwvjoWoCQgRZ4Sfky.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=ZL7R8qyQXrc",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "006",
+    "title": "Băng Cướp Siêu Xe",
+    "release_date": "2025-03-27",
+    "overview": "Ban ngày, họ là những giá trị, tiếp viên và người pha chế vô hình tại một khách sạn sang trọng. Vào ban đêm, họ là những kẻ lừa đảo, một nhóm tài xế lành nghề theo dõi và Rob giàu có trên đường. Khi họ lên kế hoạch cho vụ trộm cuối cùng của họ, giám đốc khách sạn thuê một người tấn công tàn nhẫn, để ngăn chặn họ bằng mọi giá. Với nguy cơ đóng cửa, Nora, Zoe, Steve và uy tín có thể rút được điểm số lớn nhất của họ chưa?",
+    "poster_path": "/pc7m459EdwSFL35SaxudNyv9nL8.jpg",
+    "vote_average": 6.2,
+    "poster_url": "https://image.tmdb.org/t/p/w500/pc7m459EdwSFL35SaxudNyv9nL8.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=slSwwaZ0KoM",
+    "genres": [
+      "Chính kịch"
+    ]
+  },
+  {
+    "id": "007",
+    "title": "Captain America: Thế Giới Mới",
+    "release_date": "2025-02-12",
+    "overview": "Sau khi gặp Tổng thống Hoa Kỳ mới đắc cử Thaddeus Ross, Sam Wilson thấy mình bị cuốn vào một sự cố . Anh phải khám phá lý do đằng sau một âm mưu cực kì xấu xa trước khi kẻ chủ mưu thật sự khiến cả thế giới phải hoảng sợ",
+    "poster_path": "/fWTZk4Y7HTyTTGNJnXNaX3XTE0v.jpg",
+    "vote_average": 6.1,
+    "poster_url": "https://image.tmdb.org/t/p/w500/fWTZk4Y7HTyTTGNJnXNaX3XTE0v.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=5PSzFLV-EyQ",
+    "genres": [
+      "Chính kịch"
+    ]
+  },
+  {
+    "id": "008",
+    "title": "The Hard Hit",
+    "release_date": "2023-10-20",
+    "overview": "The Hard Hit là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2023-10-20, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/whkFbOZTamHeugEG95jvQehSzAH.jpg",
+    "vote_average": 7.6,
+    "poster_url": "https://image.tmdb.org/t/p/w500/whkFbOZTamHeugEG95jvQehSzAH.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=56OSxe68mo8",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "009",
+    "title": "Cleaner",
+    "release_date": "2025-02-19",
+    "overview": "Cleaner là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2025-02-19, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/mwzDApMZAGeYCEVjhegKvCzDX0W.jpg",
+    "vote_average": 6.5,
+    "poster_url": "https://image.tmdb.org/t/p/w500/mwzDApMZAGeYCEVjhegKvCzDX0W.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=c8sf0c-cjzQ",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "010",
+    "title": "Pídeme lo que quieras",
+    "release_date": "2024-11-29",
+    "overview": "Pídeme lo que quieras là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2024-11-29, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/76qnVxU2rPdVvipBN3DPQH6fVYB.jpg",
+    "vote_average": 5.7,
+    "poster_url": "https://image.tmdb.org/t/p/w500/76qnVxU2rPdVvipBN3DPQH6fVYB.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=ywymg2PKRBY",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "011",
+    "title": "Mickey 17",
+    "release_date": "2025-02-28",
+    "overview": "Được chuyển thể từ tiểu thuyết Mickey 7 của nhà văn Edward Ashton, Cuốn tiểu thuyết xoay quanh các phiên bản nhân bản vô tính mang tên “Mickey”, dùng để thay thế con người thực hiện cuộc chinh phạt nhằm thuộc địa hóa vương quốc băng giá Niflheim. Mỗi khi một Mickey chết đi, một Mickey mới sẽ được tạo ra, với phiên bản được đánh số 1, 2, 3 tiếp theo. Mickey số 7 được cho rằng đã chết, để rồi một ngày kia, hắn quay lại và bắt gặp phiên bản tiếp theo của mình.",
+    "poster_path": "/XsKM62tGS8eRPm9sM9fYGEyZVn.jpg",
+    "vote_average": 6.9,
+    "poster_url": "https://image.tmdb.org/t/p/w500/XsKM62tGS8eRPm9sM9fYGEyZVn.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=tA1s65o_kYM",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "012",
+    "title": "Mật Vụ Phụ Hồ",
+    "release_date": "2025-03-26",
+    "overview": "Levon Cade - cựu biệt kích tinh nhuệ thuộc lực lượng Thủy quân Lục chiến Hoàng gia Anh. Sau khi nghỉ hưu, anh sống cuộc đời yên bình là một công nhân xây dựng tại Chicago (Mỹ). Levon có mối quan hệ rất tốt với gia đình ông chủ Joe Garcia (Michael Peña). Một ngày nọ, cô con gái tuổi teen Jenny (Arianna Rivas) của Joe bị bắt cóc khiến chàng cựu quân nhân phải sử dụng lại các kỹ năng giết chóc của mình để giúp đỡ.",
+    "poster_path": "/qmVVc6ZVw9PEwkr4G0Obmlg7woC.jpg",
+    "vote_average": 6.4,
+    "poster_url": "https://image.tmdb.org/t/p/w500/qmVVc6ZVw9PEwkr4G0Obmlg7woC.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=ZMmLfw2mL0g",
+    "genres": [
+      "Chính kịch"
+    ]
+  },
+  {
+    "id": "013",
+    "title": "Săn Đuổi Trên Không",
+    "release_date": "2025-04-03",
+    "overview": "Cựu đặc vụ FBI Lucas Reyes (do Josh Hartnett thủ vai) hiện đang làm lính đánh thuê sau khi mất việc. Anh được cấp trên cũ, Katherine Brunt, giao nhiệm vụ bắt giữ một tội phạm quốc tế được gọi là \"Ghost\" trên chuyến bay từ Singapore đến San Francisco. \"Ghost\" thực chất là Isha Mallik (do Charithra Chandran thủ vai), một nạn nhân của bọn buôn người, hiện đang trộm cắp của giới tội phạm giàu có để giúp đỡ người nghèo. Trên chuyến bay, ngoài Lucas, còn có nhiều sát thủ và thợ săn tiền thưởng khác cũng nhắm đến Isha. Lucas phải bảo vệ Isha khỏi những mối đe dọa này.",
+    "poster_path": "/x4nWnfgJvL045rcUCSJzfgIIY9i.jpg",
+    "vote_average": 4.8,
+    "poster_url": "https://image.tmdb.org/t/p/w500/x4nWnfgJvL045rcUCSJzfgIIY9i.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=SdsHRpjfqEI",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "014",
+    "title": "The Codes of War",
+    "release_date": "2025-03-20",
+    "overview": "The Codes of War là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2025-03-20, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/oXeiQAfRK90pxxhP5iKPXQqAIN1.jpg",
+    "vote_average": 6.1,
+    "poster_url": "https://image.tmdb.org/t/p/w500/oXeiQAfRK90pxxhP5iKPXQqAIN1.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=O7P-Ilbfefk",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "015",
+    "title": "Hành Trình Của Moana 2",
+    "release_date": "2024-11-21",
+    "overview": "“Hành Trình của Moana 2” là màn tái hợp của Moana và Maui sau 3 năm, trở lại trong chuyến phiêu lưu cùng với những thành viên mới. Theo tiếng gọi của tổ tiên, Moana sẽ tham gia cuộc hành trình đến những vùng biển xa xôi của Châu Đại Dương và sẽ đi tới vùng biển nguy hiểm, đã mất tích từ lâu. Cùng chờ đón cuộc phiêu lưu của Moana đầy chông gai sắp tới nhé.",
+    "poster_path": "/g8ikn2lfi4R04U7BtXvHmYvnUTV.jpg",
+    "vote_average": 7.1,
+    "poster_url": "https://image.tmdb.org/t/p/w500/g8ikn2lfi4R04U7BtXvHmYvnUTV.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=JdSl4RMNtGE",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "016",
+    "title": "Cosmic Chaos",
+    "release_date": "2023-08-03",
+    "overview": "Cosmic Chaos là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2023-08-03, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/mClzWv7gBqgXfjZXp49Enyoex1v.jpg",
+    "vote_average": 5.8,
+    "poster_url": "https://image.tmdb.org/t/p/w500/mClzWv7gBqgXfjZXp49Enyoex1v.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=8qOLC9Uik4k",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "017",
+    "title": "De lydløse",
+    "release_date": "2024-10-31",
+    "overview": "De lydløse là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2024-10-31, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/63tvLp9pYygvAaqWpikjTq9FHy7.jpg",
+    "vote_average": 5.0,
+    "poster_url": "https://image.tmdb.org/t/p/w500/63tvLp9pYygvAaqWpikjTq9FHy7.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=_LYIHKNLJTU",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "018",
+    "title": "Turno nocturno",
+    "release_date": "2024-10-31",
+    "overview": "Turno nocturno là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2024-10-31, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/iSSx9Bys64vlOkvkyKXtp19P7Re.jpg",
+    "vote_average": 6.6,
+    "poster_url": "https://image.tmdb.org/t/p/w500/iSSx9Bys64vlOkvkyKXtp19P7Re.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=M7oU0ocIyrc",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "019", 
+    "title": "Mufasa: Vua Sư Tử",
+    "release_date": "2024-12-18",
+    "overview": "Mufasa: Vua Sư Tử là phần tiền truyện của bộ phim hoạt hình Vua Sư Tử trứ danh, kể về cuộc đời của Mufasa - cha của Simba. Phim là hành trình Mufasa từ một chú sư tử mồ côi lạc đàn trở thành vị vua sư tử huyền thoại của Xứ Vua (Pride Land). Ngoài ra, quá khứ về tên phản diện Scar và hành trình hắc hóa của hắn cũng sẽ được phơi bày trong phần phim này.",
+    "poster_path": "/yTiVUcBeSUpmsPSbmzzK2JHeBjJ.jpg",
+    "vote_average": 7.4,
+    "poster_url": "https://image.tmdb.org/t/p/w500/yTiVUcBeSUpmsPSbmzzK2JHeBjJ.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=lMXh6vjiZrI",
+    "genres": [
+      "Hoạt hình",
+      "Phiêu lưu"
+    ]
+  },
+  {
+    "id": "020",
+    "title": "Peter Pan's Neverland Nightmare",
+    "release_date": "2025-01-13",
+    "overview": "Peter Pan's Neverland Nightmare là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2025-01-13, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/mOR1Ks0EcXocwMV4EPv4letz0F5.jpg",
+    "vote_average": 5.1,
+    "poster_url": "https://image.tmdb.org/t/p/w500/mOR1Ks0EcXocwMV4EPv4letz0F5.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=Kdid3LYAL2o",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "021",
+    "title": "825 Forest Road",
+    "release_date": "2025-04-04",
+    "overview": "825 Forest Road là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2025-04-04, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/ohESp5Nw49OD4ExCeNYCEIGX2iq.jpg",
+    "vote_average": 5.4,
+    "poster_url": "https://image.tmdb.org/t/p/w500/ohESp5Nw49OD4ExCeNYCEIGX2iq.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=dUDd83PSBic",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "022",
+    "title": "Nhím Sonic 3",
+    "release_date": "2024-12-19",
+    "overview": "Sonic, Knuckles và Tails phải đối mặt với một kẻ thù mới cực kỳ mạnh mẽ là Shadow - một nhân vật phản diện bí ẩn với sức mạnh không giống bất kỳ đối thủ nào họ từng đối mặt trước đây. Bị áp đảo về năng lực, Sonic phải lên đường thành lập một liên minh to lớn hơn.",
+    "poster_path": "/zRgxYzRu4s8smKMskdfMA2hOzyN.jpg",
+    "vote_average": 7.7,
+    "poster_url": "https://image.tmdb.org/t/p/w500/zRgxYzRu4s8smKMskdfMA2hOzyN.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=LH1J1EbqCaI",
+    "genres": [
+      "Bí ẩn",
+      "Hồi hộp"
+    ]
+  },
+  {
+    "id": "023",
+    "title": "Cinderella's Revenge",
+    "release_date": "2024-04-26",
+    "overview": "Cinderella's Revenge là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2024-04-26, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/cYB3SHhITJSbRoisgn9QQTP8YkZ.jpg",
+    "vote_average": 4.3,
+    "poster_url": "https://image.tmdb.org/t/p/w500/cYB3SHhITJSbRoisgn9QQTP8YkZ.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=-cVRbBSpXrU",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "024",
+    "title": "Peter Pan's Neverland Nightmare",
+    "release_date": "2025-01-13",
+    "overview": "Peter Pan's Neverland Nightmare là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2025-01-13, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/mOR1Ks0EcXocwMV4EPv4letz0F5.jpg",
+    "vote_average": 5.1,
+    "poster_url": "https://image.tmdb.org/t/p/w500/mOR1Ks0EcXocwMV4EPv4letz0F5.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=Kdid3LYAL2o",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "025",
+    "title": "Người Dơi Ninja Đối Đầu Liên Minh Yakuza",
+    "release_date": "2025-03-17",
+    "overview": "Gia đình Batman trở về hiện tại và phát hiện Nhật Bản đã biến mất, thay vào đó là một hòn đảo khổng lồ tên Hinomoto lơ lửng trên bầu trời Gotham. Trên đỉnh quyền lực là Yakuza – một nhóm siêu nhân cai trị tàn bạo và trông rất giống Justice League. Giờ đây, Batman và đồng đội phải chiến đấu để cứu Gotham!",
+    "poster_path": "/y2mQtPz6uDdw4CRpSdU5tlGB2MA.jpg",
+    "vote_average": 6.6,
+    "poster_url": "https://image.tmdb.org/t/p/w500/y2mQtPz6uDdw4CRpSdU5tlGB2MA.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=QleeDtH_WWE",
+    "genres": [
+      "Hành động",
+      "Khoa học viễn tưởng"
+    ]
+  },
+  {
+    "id": "026",
+    "title": "Chiến Dịch Túi Đen",
+    "release_date": "2025-03-12",
+    "overview": "Chiến Dịch Túi Đen là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2025-03-12, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/hHPovtU4b96LHcoeEwRkGHI5btw.jpg",
+    "vote_average": 6.4,
+    "poster_url": "https://image.tmdb.org/t/p/w500/hHPovtU4b96LHcoeEwRkGHI5btw.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=n_56L6WzLT8",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "027",
+    "title": "Breathing In",
+    "release_date": "2023-10-18",
+    "overview": "Breathing In là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2023-10-18, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/yy2dmnBlPhx21GUMUJUPxA9QUFp.jpg",
+    "vote_average": 5,
+    "poster_url": "https://image.tmdb.org/t/p/w500/yy2dmnBlPhx21GUMUJUPxA9QUFp.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=tqLSuujuI9g",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "028",
+    "title": "Cuộc Đào Tẩu Trên Không",
+    "release_date": "2025-01-22",
+    "overview": "Một phi công chịu trách nhiệm đưa Thống chế Không quân đến áp giải một kẻ chạy trốn về hầu tòa. Khi cả ba bay qua địa phận Alaska, căng thẳng leo thang, niềm tin bị thử thách, bởi không phải ai trên máy bay cũng như họ nghĩ. https://justwatch.pro/movie/1126166/flight-risk",
+    "poster_path": "/pOoz9qovz41fafz1DHP5TDcl0RZ.jpg",
+    "vote_average": 6.1,
+    "poster_url": "https://image.tmdb.org/t/p/w500/pOoz9qovz41fafz1DHP5TDcl0RZ.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=Cml3CFDBj2s",
+    "genres": [
+      "Chính kịch"
+    ]
+  },
+  {
+    "id": "029",
+    "title": "Nàng Bạch Tuyết",
+    "release_date": "2025-03-19",
+    "overview": "Phiên bản live-action từ Disney với sự tham gia của Rachel Zegler và Gal Gadot, dự kiến khởi chiếu năm 2024.",
+    "poster_path": "/24vmIaNTaXPXKdveylQ2C3hcWaD.jpg",
+    "vote_average": 4.6,
+    "poster_url": "https://image.tmdb.org/t/p/w500/24vmIaNTaXPXKdveylQ2C3hcWaD.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=KsSoo5K8CpA",
+    "genres": [
+      "Hoạt hình",
+      "Phiêu lưu"
+    ]
+  },
+  {
+    "id": "030",
+    "title": "Phản công",
+    "release_date": "2025-02-27",
+    "overview": "Khi nhiệm vụ giải cứu con tin dẫn đến thêm kẻ thù mới, đại úy Guerrero cùng đội lính tinh nhuệ phải đối mặt với cuộc phục kích của một nhóm tội phạm.",
+    "poster_path": "/kxnFdLJhi37ZVFDCL1ka0yeQVU5.jpg",
+    "vote_average": 8.4,
+    "poster_url": "https://image.tmdb.org/t/p/w500/kxnFdLJhi37ZVFDCL1ka0yeQVU5.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=pEO34SeTsY0",
+    "genres": [
+      "Chính kịch"
+    ]
+  },
+  {
+    "id": "031",
+    "title": "Bản danh sách cuộc đời",
+    "release_date": "2025-03-27",
+    "overview": "Được mẹ giao phó hoàn thành danh sách những điều phải làm trong đời từ thời niên thiếu, người phụ nữ trẻ nọ khám phá những bí mật gia đình, tìm thấy tình yêu và tìm lại chính mình.",
+    "poster_path": "/5fg98cVo7da7OIK45csdLSd4NaU.jpg",
+    "vote_average": 6.9,
+    "poster_url": "https://image.tmdb.org/t/p/w500/5fg98cVo7da7OIK45csdLSd4NaU.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=nldAfgJrBr8",
+    "genres": [
+      "Tình cảm",
+      "Lãng mạn"
+    ]
+  },
+  {
+    "id": "032",
+    "title": "Thuyền Trưởng Popeye",
+    "release_date": "2025-03-21",
+    "overview": "Một nhóm sinh viên quyết định quay phim tài liệu về truyền thuyết \"Người thủy thủ\" tại nhà máy đóng hộp rau bina bỏ hoang, nơi được cho là bị ám bởi nhân vật này. Trong quá trình khám phá, họ phát hiện ra rằng truyền thuyết không chỉ là hư cấu khi đối mặt với một thực thể siêu nhiên có sức mạnh khủng khiếp. Những bí mật đen tối về sự ô nhiễm tại nhà máy và sự biến đổi của \"Người thủy thủ\" dần được hé lộ, đặt nhóm bạn trẻ vào tình thế nguy hiểm chết người.",
+    "poster_path": "/nVwu3mN7hr1yF467pGct3yQFM41.jpg",
+    "vote_average": 6.1,
+    "poster_url": "https://image.tmdb.org/t/p/w500/nVwu3mN7hr1yF467pGct3yQFM41.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=cGRfu8WD8RQ",
+    "genres": [
+      "Tài liệu"
+    ]
+  },
+  {
+    "id": "033",
+    "title": "Hẻm Núi - The Gorge",
+    "release_date": "2025-02-13",
+    "overview": "Hai đặc vụ được huấn luyện bài bản dần trở nên thân thiết từ xa sau khi được cử đến canh gác hai bên hẻm núi bí ẩn. Khi thế lực tà ác ở bên dưới xuất hiện, họ phải hợp tác để sống sót trước những gì ẩn chứa bên trong.",
+    "poster_path": "/7iMBZzVZtG0oBug4TfqDb9ZxAOa.jpg",
+    "vote_average": 7.7,
+    "poster_url": "https://image.tmdb.org/t/p/w500/7iMBZzVZtG0oBug4TfqDb9ZxAOa.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=rUSdnuOLebE",
+    "genres": [
+      "Bí ẩn",
+      "Hồi hộp"
+    ]
+  },
+  {
+    "id": "034",
+    "title": "Uranus 2324",
+    "release_date": "2024-07-04",
+    "overview": "Gắn bó từ thuở thiếu thời nhưng rồi chia lìa vì bi kịch, một phi hành gia và một thợ lặn tự do bẻ cong các định luật về không gian và thời gian để tìm cách ở bên nhau lần nữa.",
+    "poster_path": "/fXx7wPWSfCrWApWsB4kLoiGzbSP.jpg",
+    "vote_average": 6.2,
+    "poster_url": "https://image.tmdb.org/t/p/w500/fXx7wPWSfCrWApWsB4kLoiGzbSP.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=x8Fd8qMbqw4",
+    "genres": [
+      "Khoa học viễn tưởng"
+    ]
+  },
+  {
+    "id": "035",
+    "title": "Una pequeña confusión",
+    "release_date": "2024-12-25",
+    "overview": "Una pequeña confusión là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2024-12-25, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/r01XiXILuu0uymj8yvpRyiD9hB0.jpg",
+    "vote_average": 7.5,
+    "poster_url": "https://image.tmdb.org/t/p/w500/r01XiXILuu0uymj8yvpRyiD9hB0.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=ueJ4YOhuMYQ",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "036",
+    "title": "Clawfoot",
+    "release_date": "2024-04-24",
+    "overview": "Clawfoot là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2024-04-24, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/p2aM5FtUHmKp28AfiZCP6rkQJiw.jpg",
+    "vote_average": 5.1,
+    "poster_url": "https://image.tmdb.org/t/p/w500/p2aM5FtUHmKp28AfiZCP6rkQJiw.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=Hedt6qim2bM",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "037",
+    "title": "Thành phố quỷ",
+    "release_date": "2025-02-26",
+    "overview": "Bị đổ tội giết hại gia đình và bỏ mặc đến chết, sát thủ đã giải nghệ nọ tìm mọi cách để trả thù bọn \"quỷ\" đeo mặt nạ đã chiếm lấy thành phố của anh.",
+    "poster_path": "/7Wxob1SFyydL8SrvfZN6OrB449C.jpg",
+    "vote_average": 6.9,
+    "poster_url": "https://image.tmdb.org/t/p/w500/7Wxob1SFyydL8SrvfZN6OrB449C.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=q-djvN7i5us",
+    "genres": [
+      "Chính kịch"
+    ]
+  },
+  {
+    "id": "038",
+    "title": "Chó Săn Địa Ngục",
+    "release_date": "2024-06-20",
+    "overview": "Câu chuyện xoay quanh một sát thủ sắp nghỉ hưu. Nhân vật chính, sau khi nhận được yêu cầu từ một người quen cũ, thực hiện công việc cuối cùng, mở đầu cho cốt truyện của phim. Phim có sự tham gia của các diễn viên như Louis Mandylor, Ron Smoorenburg, Panya Yimmumphai, Vithaya Pansringarm. Đạo diễn Joshua Dixon...",
+    "poster_path": "/h1BtcTEk0pbe9XhbxrAp2oLKoWb.jpg",
+    "vote_average": 6.4,
+    "poster_url": "https://image.tmdb.org/t/p/w500/h1BtcTEk0pbe9XhbxrAp2oLKoWb.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=g01P-koF8Xw",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "039",
+    "title": "Sát Thủ Về Hưu",
+    "release_date": "2024-12-13",
+    "overview": "Danny Dolinski - một sát thủ già, đang loay hoay trong cuộc tình đơn phương với Anata, một người quản lý câu lạc bộ cá tính. Ông bất ngờ được Tổ chức gọi quay lại làm nhiệm vụ huấn luyện Wihlborg, một sát thủ trẻ tuổi, tài năng và có thái độ bất cần đời.",
+    "poster_path": "/qx0NV9VEZTXN5c1qruhyHclMauY.jpg",
+    "vote_average": 5.6,
+    "poster_url": "https://image.tmdb.org/t/p/w500/qx0NV9VEZTXN5c1qruhyHclMauY.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=vAGp4TkTbAE",
+    "genres": [
+      "Chính kịch"
+    ]
+  },
+  {
+    "id": "040",
+    "title": "Plankton: Phim điện ảnh",
+    "release_date": "2025-03-08",
+    "overview": "Chuyện tình phức tạp của Plankton với bà xã máy tính có tri giác bỗng loạn hết cả lên khi cô quyết định hủy diệt thế giới mà không có anh.",
+    "poster_path": "/hGaUNLF5VZbg9ovPTyjm9Rv5xWz.jpg",
+    "vote_average": 7.0,
+    "poster_url": "https://image.tmdb.org/t/p/w500/hGaUNLF5VZbg9ovPTyjm9Rv5xWz.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=IHRScjhllsQ",
+    "genres": [
+      "Chính kịch"
+    ]
+  },
+  {
+    "id": "041",
+    "title": "Kraven: Thợ Săn Thủ Lĩnh",
+    "release_date": "2024-12-11",
+    "overview": "Sergei Kravinoff (Aaron Taylor-Johnson thủ vai) cùng bố của anh đi săn ở Châu Phi. Bố của Sergei Kravinoff là một tay săn lão luyện. Khi Sergei bị một con sư tử tấn công, bố của anh cho rằng anh chỉ là một kẻ yếu đuối. Mặc dù bị sư tử cắn và bị chính bố mình bỏ mặc, nhưng Sergei đã không chết mà thay vào đó, vết cắn lại cho Sergei một sức mạnh phi thường. Cũng từ đây, gã nhập cư Sergei Kravinoff đang thực hiện nhiệm vụ chứng minh rằng anh ta là thợ săn vĩ đại nhất thế giới.",
+    "poster_path": "/1BMqOORP7cnYyrfR2nectAQLw1I.jpg",
+    "vote_average": 6.6,
+    "poster_url": "https://image.tmdb.org/t/p/w500/1BMqOORP7cnYyrfR2nectAQLw1I.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=hR1-ihzff3I",
+    "genres": [
+      "Hoạt hình",
+      "Phiêu lưu"
+    ]
+  },
+  {
+    "id": "042",
+    "title": "Dark Match",
+    "release_date": "2024-07-21",
+    "overview": "Dark Match là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2024-07-21, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/6E6fBED3ix7FmrWUWZdeYG4vqK8.jpg",
+    "vote_average": 4.8,
+    "poster_url": "https://image.tmdb.org/t/p/w500/6E6fBED3ix7FmrWUWZdeYG4vqK8.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=2Q556EL8DGU",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "043",
+    "title": "அமரன்",
+    "release_date": "2024-10-31",
+    "overview": "அமரன் là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2024-10-31, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/eCB06m1KUGilEOlIzb40nkQhVY0.jpg",
+    "vote_average": 7.4,
+    "poster_url": "https://image.tmdb.org/t/p/w500/eCB06m1KUGilEOlIzb40nkQhVY0.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=9SSd9L0SxN0",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "044",
+    "title": "PEACE MAKER 鐵 前篇 想道~オモウミチ~",
+    "release_date": "2018-06-02",
+    "overview": "PEACE MAKER 鐵 前篇 想道~オモウミチ~ là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2018-06-02, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/rAAIqHD7frLty44dMotxa62oUYn.jpg",
+    "vote_average": 5.2,
+    "poster_url": "https://image.tmdb.org/t/p/w500/rAAIqHD7frLty44dMotxa62oUYn.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=l_KqV052n9k",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "045",
+    "title": "Đố Anh Còng Được Tôi",
+    "release_date": "2024-09-13",
+    "overview": "Các thanh tra kỳ cựu nổi tiếng đã hoạt động trở lại! Thám tử Seo Do-cheol (HWANG Jung-min) và đội điều tra tội phạm nguy hiểm của anh không ngừng truy lùng tội phạm cả ngày lẫn đêm, đặt cược cả cuộc sống cá nhân của họ. Nhận một vụ án sát hại một giáo sư, đội thanh tra nhận ra những mối liên hệ với các vụ án trong quá khứ và nảy sinh những nghi ngờ về một kẻ giết người hàng loạt. Điều này đã khiến cả nước rơi vào tình trạng hỗn loạn. Khi đội thanh tra đi sâu vào cuộc điều tra, kẻ sát nhân đã chế nhạo họ bằng cách công khai tung ra một đoạn giới thiệu trực tuyến, chỉ ra nạn nhân tiếp theo và làm gia tăng sự hỗn loạn. Để giải quyết mối đe dọa ngày càng leo thang, nhóm đã kết nạp một sĩ quan tân binh trẻ Park Sun-woo (JUNG Hae-in), dẫn đến những khúc mắc và đầy rẫy bất ngờ trong vụ án.",
+    "poster_path": "/zqPpoVWrHMoIYzsnA94shKqdcM0.jpg",
+    "vote_average": 6.9,
+    "poster_url": "https://image.tmdb.org/t/p/w500/zqPpoVWrHMoIYzsnA94shKqdcM0.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=_JzGZAMjMb0",
+    "genres": [
+      "Chính kịch"
+    ]
+  },
+  {
+    "id": "046",
+    "title": "Hồi Ức Của Ốc Sên",
+    "release_date": "2024-10-17",
+    "overview": "Bộ phim kể về câu chuyện cảm động và đầy cảm xúc của Grace Pudel, một cô bé yêu thích sưu tầm ốc sên và phải đối mặt với nhiều khó khăn sau khi bị tách khỏi người anh trai sinh đôi Gilbert. Grace đã kết bạn với một bà lão kỳ quặc tên Pinky, người giúp cô vượt qua những thử thách trong cuộc sống.",
+    "poster_path": "/57AgZv1ITeBLShiNdchZ5153evs.jpg",
+    "vote_average": 8.0,
+    "poster_url": "https://image.tmdb.org/t/p/w500/57AgZv1ITeBLShiNdchZ5153evs.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=q47QUYb0hjc",
+    "genres": [
+      "Chính kịch"
+    ]
+  },
+  {
+    "id": "047",
+    "title": "Võ Sĩ Giác Đấu II",
+    "release_date": "2024-11-13",
+    "overview": "20 năm trước, một anh hùng đã được sinh ra và nhanh chóng thống trị mọi mặt trận phòng vé toàn cầu đầy kiêu hãnh. Tên gã là \"Maximus Decimus Meridius, chỉ huy quân đội phương Bắc, tướng quân của Felix Legions, người trung thành với hoàng đế chân chính Marcus Aurelius, cha của một đứa con đã bị giết, chồng của một người vợ đã bị giết. Và tôi sẽ trả thù, trong kiếp này hoặc kiếp sau\". Và 20 năm sau, Võ Sĩ Giác Đấu II tiếp nối với câu chuyện được thúc đẩy bởi nỗi căm thù của cậu bé Lucius, lúc này đã là một chàng võ sĩ giác đấu cường tráng bị ép buộc phải bước vào Đấu Trường La Mã khi cả vương quốc của mình rơi vào tay những gã Hoàng Đế bạo chúa.",
+    "poster_path": "/xLIOLFWm4PgkXKVmHcmnjuxktSg.jpg",
+    "vote_average": 6.8,
+    "poster_url": "https://image.tmdb.org/t/p/w500/xLIOLFWm4PgkXKVmHcmnjuxktSg.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=TQwSz88ITAE",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "048",
+    "title": "Z Zone",
+    "release_date": "2025-02-07",
+    "overview": "Z Zone là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2025-02-07, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/s6kFtdxfTC4xR8yDGbIjTgGEcFI.jpg",
+    "vote_average": 6.7,
+    "poster_url": "https://image.tmdb.org/t/p/w500/s6kFtdxfTC4xR8yDGbIjTgGEcFI.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=h6I_BjRmL2A",
+    "genres": [
+      "Kinh dị"
+    ]
+  },
+  {
+    "id": "049",
+    "title": "Lạc Trôi",
+    "release_date": "2024-08-29",
+    "overview": "Trước bối cảnh hậu tận thế, chú mèo xám nhút nhát, vốn luôn sợ nước phải rời bỏ vùng an toàn khi căn nhà thân yêu bị cuốn trôi bởi cơn lũ dữ. Trên hành trình vượt đại dương mênh mông, chú mèo cùng những người bạn đồng hành (Capybara, chó Labrador Retriever, Vượn Cáo, chim Thư ký) phải học cách vượt qua nỗi sợ và chấp nhận những điểm khác biệt để cùng nhau tồn tại.",
+    "poster_path": "/5S4pvKFj2bT0PcFNLidnAWocsKU.jpg",
+    "vote_average": 8.2,
+    "poster_url": "https://image.tmdb.org/t/p/w500/5S4pvKFj2bT0PcFNLidnAWocsKU.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=shsVQvHUTxw",
+    "genres": [
+      "Hậu tận thế",
+      "Khoa học viễn tưởng"
+    ]
+  },
+  {
+    "id": "050",
+    "title": "Sky Force",
+    "release_date": "2025-01-24",
+    "overview": "Sky Force là một bộ phim đáng chú ý, dự kiến ra mắt vào ngày 2025-01-24, hứa hẹn mang đến trải nghiệm điện ảnh hấp dẫn.",
+    "poster_path": "/f1KLUpaW7rbXhUm5SxG1lpPFFCJ.jpg",
+    "vote_average": 6.7,
+    "poster_url": "https://image.tmdb.org/t/p/w500/f1KLUpaW7rbXhUm5SxG1lpPFFCJ.jpg",
+    "trailer_url": "https://www.youtube.com/watch?v=PKsVB1wPZ78",
+    "genres": [
+      "Kinh dị"
+    ]
+  }
+]
