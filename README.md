@@ -1,1 +1,0 @@
-con chó Phước ngu
