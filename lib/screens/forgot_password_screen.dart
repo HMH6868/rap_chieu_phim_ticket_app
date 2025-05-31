@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../database/auth_database.dart';
+import '../utils/supabase_service.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -10,16 +10,13 @@ class ForgotPasswordScreen extends StatefulWidget {
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final _emailController = TextEditingController();
-  final _newPasswordController = TextEditingController();
   String? _message;
   bool _isError = false;
-  bool _obscurePassword = true;
 
   Future<void> _resetPassword() async {
-    if (_emailController.text.trim().isEmpty || 
-        _newPasswordController.text.trim().isEmpty) {
+    if (_emailController.text.trim().isEmpty) {
       setState(() {
-        _message = 'Vui lòng nhập đầy đủ thông tin';
+        _message = 'Vui lòng nhập email của bạn';
         _isError = true;
       });
       return;
@@ -33,29 +30,21 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     );
 
     try {
-      final user = await AuthDatabase.getUserByEmail(_emailController.text.trim());
+      // Request password reset with Supabase
+      await SupabaseService.resetPassword(_emailController.text.trim());
       
       // Pop loading dialog
       Navigator.pop(context);
       
-      if (user != null) {
-        await AuthDatabase.updatePassword(
-            _emailController.text.trim(), _newPasswordController.text.trim());
-        setState(() {
-          _message = 'Đặt lại mật khẩu thành công!';
-          _isError = false;
-        });
-      } else {
-        setState(() {
-          _message = 'Email không tồn tại!';
-          _isError = true;
-        });
-      }
+      setState(() {
+        _message = 'Đã gửi email đặt lại mật khẩu. Vui lòng kiểm tra hộp thư của bạn.';
+        _isError = false;
+      });
     } catch (e) {
       // Pop loading dialog
       Navigator.pop(context);
       setState(() {
-        _message = 'Đã xảy ra lỗi. Vui lòng thử lại sau.';
+        _message = 'Đã xảy ra lỗi: ${e.toString()}';
         _isError = true;
       });
     }
@@ -98,7 +87,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ),
                 const SizedBox(height: 8),
                 const Text(
-                  'Nhập email và mật khẩu mới',
+                  'Nhập email của bạn để đặt lại mật khẩu',
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey,
@@ -125,60 +114,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     decoration: InputDecoration(
                       labelText: 'Email',
                       prefixIcon: const Icon(Icons.email_outlined),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide.none,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide.none,
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(
-                          color: Theme.of(context).primaryColor,
-                          width: 2,
-                        ),
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(vertical: 16),
-                      floatingLabelStyle: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                
-                // New Password field
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
-                        blurRadius: 5,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: TextField(
-                    controller: _newPasswordController,
-                    obscureText: _obscurePassword,
-                    decoration: InputDecoration(
-                      labelText: 'Mật khẩu mới',
-                      prefixIcon: const Icon(Icons.lock_outline),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _obscurePassword ? Icons.visibility_off : Icons.visibility,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _obscurePassword = !_obscurePassword;
-                          });
-                        },
-                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide.none,
@@ -252,7 +187,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       elevation: 2,
                     ),
                     child: const Text(
-                      'ĐẶT LẠI MẬT KHẨU',
+                      'GỬI YÊU CẦU ĐẶT LẠI MẬT KHẨU',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,

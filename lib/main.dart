@@ -9,10 +9,14 @@ import 'utils/theme_provider.dart';
 import 'utils/ticket_provider.dart';
 import 'utils/auth_provider.dart';
 import 'utils/favorite_provider.dart';
+import 'utils/supabase_service.dart';
 
 void main() async {
   // Ensure Flutter is initialized
   WidgetsFlutterBinding.ensureInitialized();
+  
+  // Initialize Supabase
+  await SupabaseService.initialize();
   
   // Create providers
   final themeProvider = ThemeProvider();

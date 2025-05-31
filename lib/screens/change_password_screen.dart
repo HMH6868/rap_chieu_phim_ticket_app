@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../utils/auth_provider.dart';
-import '../database/auth_database.dart';
+import '../utils/supabase_service.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
@@ -63,19 +64,22 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       final email = authProvider.user?.email ?? '';
 
-      final user = await AuthDatabase.login(
-        email,
-        currentPassword,
+      // Verify current password by trying to sign in
+      final supabase = Supabase.instance.client;
+      
+      // First sign in with current credentials to verify
+      await supabase.auth.signInWithPassword(
+        email: email,
+        password: currentPassword,
       );
+      
+      // Then update password
+      final response = await SupabaseService.updatePassword(newPassword);
 
       // Pop loading dialog
       Navigator.pop(context);
 
-      if (user != null) {
-        await AuthDatabase.updatePassword(
-          email,
-          newPassword,
-        );
+      if (response.user != null) {
         setState(() {
           _message = 'Đổi mật khẩu thành công!';
           _isError = false;
@@ -85,7 +89,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         _confirmPassController.clear();
       } else {
         setState(() {
-          _message = 'Mật khẩu hiện tại không đúng!';
+          _message = 'Không thể đổi mật khẩu!';
           _isError = true;
         });
       }
@@ -93,7 +97,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       // Pop loading dialog
       Navigator.pop(context);
       setState(() {
-        _message = 'Đã xảy ra lỗi. Vui lòng thử lại sau.';
+        _message = 'Đã xảy ra lỗi: ${e.toString()}';
         _isError = true;
       });
     }

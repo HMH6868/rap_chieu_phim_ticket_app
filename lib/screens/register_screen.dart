@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../database/auth_database.dart';
+import '../utils/supabase_service.dart';
 import '../models/user.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -68,22 +68,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
 
     try {
-      final newUser = User(
-        email: email,
-        password: password,
-      );
-      
-      final result = await AuthDatabase.register(newUser);
+      // Sign up with Supabase
+      final response = await SupabaseService.signUp(email, password);
       
       // Pop loading dialog
       Navigator.pop(context);
       
       setState(() {
-        if (result > 0) {
-          _message = 'Đăng ký thành công! Hãy đăng nhập.';
+        if (response.user != null) {
+          _message = 'Đăng ký thành công! Vui lòng xác nhận email của bạn trước khi đăng nhập.';
           _isError = false;
         } else {
-          _message = 'Email đã tồn tại!';
+          _message = 'Email đã tồn tại hoặc không hợp lệ!';
           _isError = true;
         }
       });
@@ -91,7 +87,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       // Pop loading dialog
       Navigator.pop(context);
       setState(() {
-        _message = 'Đã xảy ra lỗi. Vui lòng thử lại sau.';
+        _message = 'Đã xảy ra lỗi: ${e.toString()}';
         _isError = true;
       });
     }

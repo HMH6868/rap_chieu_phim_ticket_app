@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import '../models/movie.dart';
 
 class MovieCard extends StatefulWidget {
@@ -87,24 +88,33 @@ class _MovieCardState extends State<MovieCard>
                   ClipRRect(
                     borderRadius:
                         const BorderRadius.vertical(top: Radius.circular(16)),
-                    child: Image.network(
-                      widget.movie.posterUrl,
+                    child: CachedNetworkImage(
+                      imageUrl: widget.movie.posterUrl,
                       height: 180,
                       width: double.infinity,
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          height: 180,
-                          color: errorBgColor,
-                          child: const Center(
-                            child: Icon(
-                              Icons.error_outline,
-                              color: Colors.grey,
-                              size: 50,
-                            ),
+                      memCacheHeight: 360,
+                      memCacheWidth: 240,
+                      placeholder: (context, url) => Container(
+                        height: 180,
+                        color: errorBgColor,
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: Theme.of(context).primaryColor,
                           ),
-                        );
-                      },
+                        ),
+                      ),
+                      errorWidget: (context, url, error) => Container(
+                        height: 180,
+                        color: errorBgColor,
+                        child: const Center(
+                          child: Icon(
+                            Icons.error_outline,
+                            color: Colors.grey,
+                            size: 50,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 8),

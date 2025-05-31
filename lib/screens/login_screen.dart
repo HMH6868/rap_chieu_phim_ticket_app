@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../database/auth_database.dart';
 import '../utils/auth_provider.dart';
 import '../utils/ticket_provider.dart';
 import '../utils/favorite_provider.dart';
+import '../utils/supabase_service.dart';
+import '../models/user.dart';
 import 'main_screen.dart';
 import 'register_screen.dart';
 import 'forgot_password_screen.dart';
@@ -20,6 +21,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   String? _error;
   bool _obscurePassword = true;
+
+  @override
+  void initState() {
+    super.initState();
+    // Khởi tạo Deep Link Listener khi màn hình được tạo
+    SupabaseService.setupDeepLinkListener(context);
+  }
 
   Future<void> _login() async {
     final email = _emailController.text.trim();
@@ -40,17 +48,23 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     try {
-      final user = await AuthDatabase.login(email, password);
+      // Using Supabase for login
+      final response = await SupabaseService.signIn(email, password);
+      
       // Pop loading dialog
       Navigator.pop(context);
       
-      if (user != null) {
+      if (response.user != null) {
         final authProvider = Provider.of<AuthProvider>(context, listen: false);
-        final ticketProvider =
-            Provider.of<TicketProvider>(context, listen: false);
-        final favoriteProvider =
-            Provider.of<FavoriteProvider>(context, listen: false);
+        final ticketProvider = Provider.of<TicketProvider>(context, listen: false);
+        final favoriteProvider = Provider.of<FavoriteProvider>(context, listen: false);
 
+        // Create User object from Supabase response
+        final user = User(
+          email: response.user!.email ?? '',
+          password: '', // We don't store passwords
+        );
+        
         authProvider.login(user);
         await ticketProvider.loadTickets(email);
         await favoriteProvider.loadFavorites(email);
@@ -60,12 +74,12 @@ class _LoginScreenState extends State<LoginScreen> {
           MaterialPageRoute(builder: (_) => const MainScreen()),
         );
       } else {
-        setState(() => _error = 'Sai email hoặc mật khẩu');
+        setState(() => _error = 'Đăng nhập không thành công');
       }
     } catch (e) {
       // Pop loading dialog
       Navigator.pop(context);
-      setState(() => _error = 'Đã xảy ra lỗi. Vui lòng thử lại sau.');
+      setState(() => _error = 'Đăng nhập không thành công: ${e.toString()}');
     }
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../utils/theme_provider.dart';
 import '../utils/auth_provider.dart';
+import '../utils/supabase_service.dart';
 import '../models/user.dart';
 import 'login_screen.dart';
 import 'favorite_screen.dart';
@@ -399,8 +400,11 @@ class ProfileScreen extends StatelessWidget {
                         child: const Text('Hủy'),
                       ),
                       ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           Navigator.pop(context);
+                          // Sign out from Supabase
+                          await SupabaseService.signOut();
+                          // Then update local auth state
                           authProvider.logout();
                           Navigator.pushReplacement(
                             context,
