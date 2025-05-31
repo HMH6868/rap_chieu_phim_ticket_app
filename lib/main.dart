@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'screens/login_screen.dart';
 import 'screens/search_screen.dart';
 import 'screens/main_screen.dart';
+import 'screens/update_password_screen.dart';
 import 'theme/app_theme.dart';
 import 'utils/theme_provider.dart';
 import 'utils/ticket_provider.dart';
@@ -64,6 +65,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginScreen(),
         '/main': (context) => const MainScreen(),
         '/search': (context) => const SearchScreen(),
+        '/update-password': (context) => const UpdatePasswordScreen(),
       },
     );
   }

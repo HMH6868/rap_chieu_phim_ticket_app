@@ -1,6 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter/material.dart';
 import '../models/user.dart' as app_models;
+import '../screens/update_password_screen.dart';
 
 class SupabaseService {
   static final SupabaseClient _supabase = Supabase.instance.client;
@@ -18,11 +19,50 @@ class SupabaseService {
   static void setupDeepLinkListener(BuildContext context) {
     Supabase.instance.client.auth.onAuthStateChange.listen((data) {
       final AuthChangeEvent event = data.event;
+      final Session? session = data.session;
+      
+      debugPrint('Auth event: $event');
+      
       if (event == AuthChangeEvent.signedIn) {
         debugPrint('Đăng nhập thành công qua deep link');
         // Có thể thêm xử lý đặc biệt khi đăng nhập qua deep link ở đây
+      } else if (event == AuthChangeEvent.passwordRecovery) {
+        debugPrint('Nhận deep link đặt lại mật khẩu');
+        // Chuyển hướng đến màn hình đặt lại mật khẩu ngay lập tức
+        Future.microtask(() {
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            '/update-password',
+            (route) => false,
+          );
+        });
+      } else if (event == AuthChangeEvent.userUpdated) {
+        debugPrint('Thông tin người dùng đã được cập nhật');
       }
     });
+    
+    // Kiểm tra trạng thái deep link hiện tại (trong trường hợp app đã được mở qua deep link)
+    _checkCurrentSession(context);
+  }
+  
+  // Kiểm tra session hiện tại để xử lý trong trường hợp app đã được mở bởi deep link
+  static void _checkCurrentSession(BuildContext context) async {
+    final session = _supabase.auth.currentSession;
+    
+    if (session != null) {
+      if (session.user.emailConfirmedAt != null) {
+        debugPrint('Email đã được xác nhận');
+      }
+      
+      // Kiểm tra nếu người dùng đang trong quá trình đặt lại mật khẩu
+      final authType = await _supabase.auth.onAuthStateChange.first;
+      if (authType.event == AuthChangeEvent.passwordRecovery) {
+        debugPrint('Đang trong quá trình đặt lại mật khẩu');
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          '/update-password',
+          (route) => false,
+        );
+      }
+    }
   }
   
   // Sign Up
