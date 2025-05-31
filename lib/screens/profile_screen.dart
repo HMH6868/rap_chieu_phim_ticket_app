@@ -4,6 +4,7 @@ import '../utils/theme_provider.dart';
 import '../utils/auth_provider.dart';
 import '../utils/supabase_service.dart';
 import '../models/user.dart';
+import '../main.dart'; // Import for the navigator key
 import 'login_screen.dart';
 import 'favorite_screen.dart';
 import 'change_password_screen.dart';
@@ -401,15 +402,29 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       ElevatedButton(
                         onPressed: () async {
-                          Navigator.pop(context);
-                          // Sign out from Supabase
-                          await SupabaseService.signOut();
-                          // Then update local auth state
-                          authProvider.logout();
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (_) => const LoginScreen()),
-                          );
+                          Navigator.pop(context); // Close the confirmation dialog
+                          
+                          try {
+                            // Sign out from Supabase first without showing loading dialog
+                            await SupabaseService.signOut();
+                            
+                            // Then update local auth state
+                            authProvider.logout();
+                            
+                            // Use the global navigator key for more reliable navigation
+                            navigatorKey.currentState?.pushNamedAndRemoveUntil(
+                              '/login',
+                              (route) => false,
+                            );
+                          } catch (e) {
+                            // Show error snackbar
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Lỗi đăng xuất: ${e.toString()}'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: primaryColor,

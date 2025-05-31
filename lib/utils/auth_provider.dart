@@ -14,7 +14,10 @@ class AuthProvider with ChangeNotifier {
   }
 
   void logout() {
+    // Clear user data completely
     _user = null;
+    
+    // Notify listeners about the change
     notifyListeners();
   }
 }

@@ -12,6 +12,9 @@ import 'utils/auth_provider.dart';
 import 'utils/favorite_provider.dart';
 import 'utils/supabase_service.dart';
 
+// Global navigator key for accessing navigation state from anywhere
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 void main() async {
   // Ensure Flutter is initialized
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,6 +59,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'Đặt Vé Xem Phim',
+      navigatorKey: navigatorKey,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeProvider.themeMode,

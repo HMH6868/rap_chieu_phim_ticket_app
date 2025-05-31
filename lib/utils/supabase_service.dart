@@ -86,7 +86,19 @@ class SupabaseService {
   
   // Sign Out
   static Future<void> signOut() async {
-    await _supabase.auth.signOut();
+    try {
+      // Add timeout to prevent hanging
+      await _supabase.auth.signOut().timeout(
+        const Duration(seconds: 3),
+        onTimeout: () {
+          debugPrint('Sign out timed out, forcing logout');
+          return;
+        },
+      );
+    } catch (e) {
+      debugPrint('Error during sign out: $e');
+      // Continue with local logout regardless of error
+    }
   }
   
   // Get current user
