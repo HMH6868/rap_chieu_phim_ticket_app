@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/ticket.dart';
 import '../models/movie.dart';
-import '../database/ticket_database.dart';
+import '../utils/supabase_service.dart';
 
 class TicketProvider extends ChangeNotifier {
   List<Ticket> _tickets = [];
@@ -9,7 +9,22 @@ class TicketProvider extends ChangeNotifier {
   List<Ticket> get tickets => _tickets;
 
   Future<void> loadTickets(String userEmail) async {
-    _tickets = await TicketDatabase.getTicketsByUser(userEmail);
+    final ticketsData = await SupabaseService.getTicketsByUser(userEmail);
+    
+    // Chuyển đổi từ dynamic list sang Ticket list
+    _tickets = ticketsData.map((item) => Ticket(
+      id: item['id'],
+      movieId: item['movie_id'] ?? '',
+      movieTitle: item['movie_title'] ?? '',
+      posterUrl: item['poster_url'] ?? '',
+      seats: item['seats'] != null ? List<String>.from(item['seats']) : [],
+      totalAmount: (item['total_amount'] ?? 0.0).toDouble(),
+      dateTime: item['date_time'] != null ? DateTime.parse(item['date_time']) : DateTime.now(),
+      userEmail: item['user_email'] ?? '',
+      theater: item['theater'] ?? '',
+      status: item['status'] ?? 'active',
+    )).toList();
+    
     notifyListeners();
   }
 
@@ -21,36 +36,38 @@ class TicketProvider extends ChangeNotifier {
     String theater = 'CGV Aeon Mall',
     DateTime? dateTime,
   }) async {
-    final newTicket = Ticket(
-      movieId: movie.id,
-      movieTitle: movie.title,
-      posterUrl: movie.posterUrl,
-      seats: selectedSeats,
-      totalAmount: totalAmount,
-      dateTime: dateTime ?? DateTime.now(),
-      userEmail: userEmail,
-      theater: theater,
-      status: 'active',
-    );
+    final ticketData = {
+      'movie_id': movie.id,
+      'movie_title': movie.title,
+      'poster_url': movie.posterUrl,
+      'seats': selectedSeats,
+      'total_amount': totalAmount,
+      'date_time': (dateTime ?? DateTime.now()).toIso8601String(),
+      'user_email': userEmail,
+      'theater': theater,
+      'status': 'active',
+    };
 
-    await TicketDatabase.insertTicket(newTicket);
-    await loadTickets(userEmail);
+    final success = await SupabaseService.insertTicket(ticketData);
+    if (success) {
+      await loadTickets(userEmail);
+    }
   }
 
   Future<void> cancelTicket(int id, String userEmail) async {
-    await TicketDatabase.updateStatus(id, 'cancelled');
-    await loadTickets(userEmail);
+    final success = await SupabaseService.updateTicketStatus(id, 'cancelled');
+    if (success) {
+      await loadTickets(userEmail);
+    }
   }
 
   Future<void> removeTicket(int id) async {
-    await TicketDatabase.deleteTicket(id);
-    _tickets.removeWhere((ticket) => ticket.id == id);
-    notifyListeners();
+    final success = await SupabaseService.deleteTicket(id);
+    if (success) {
+      _tickets.removeWhere((ticket) => ticket.id == id);
+      notifyListeners();
+    }
   }
 
-  Future<void> clearTickets(String userEmail) async {
-    await TicketDatabase.clearAllTickets();
-    _tickets.clear();
-    notifyListeners();
-  }
+  // Không cần clearTickets vì không cần xóa toàn bộ vé từ hệ thống
 }

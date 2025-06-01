@@ -52,33 +52,44 @@ class _LoginScreenState extends State<LoginScreen> {
       final response = await SupabaseService.signIn(email, password);
       
       // Pop loading dialog
-      Navigator.pop(context);
+      if (context.mounted) {
+        Navigator.pop(context);
+      }
       
-      if (response.user != null) {
+      if (response['success'] == true) {
         final authProvider = Provider.of<AuthProvider>(context, listen: false);
         final ticketProvider = Provider.of<TicketProvider>(context, listen: false);
         final favoriteProvider = Provider.of<FavoriteProvider>(context, listen: false);
 
+        // Lấy avatar URL mới nhất trực tiếp từ Supabase
+        String? avatarUrl = await SupabaseService.getLatestAvatarUrl();
+        debugPrint('Avatar URL at login time: $avatarUrl');
+
         // Create User object from Supabase response
         final user = User(
-          email: response.user!.email ?? '',
+          email: response['user']!.email ?? '',
           password: '', // We don't store passwords
+          avatarUrl: avatarUrl,
         );
         
         authProvider.login(user);
         await ticketProvider.loadTickets(email);
         await favoriteProvider.loadFavorites(email);
 
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => const MainScreen()),
-        );
+        if (context.mounted) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (_) => const MainScreen()),
+          );
+        }
       } else {
-        setState(() => _error = 'Đăng nhập không thành công');
+        setState(() => _error = response['error'] ?? 'Đăng nhập không thành công');
       }
     } catch (e) {
       // Pop loading dialog
-      Navigator.pop(context);
+      if (context.mounted) {
+        Navigator.pop(context);
+      }
       setState(() => _error = 'Đăng nhập không thành công: ${e.toString()}');
     }
   }

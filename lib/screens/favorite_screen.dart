@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/movie.dart';
-import '../database/favorite_database.dart';
+import '../utils/supabase_service.dart';
 import '../utils/auth_provider.dart';
 import '../utils/favorite_provider.dart';
 import '../widgets/movie_card.dart';
@@ -27,9 +27,21 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
   Future<void> _loadFavorites() async {
     final userEmail = context.read<AuthProvider>().user?.email ?? '';
-    final movies = await FavoriteDatabase.getFavorites(userEmail);
+    final favoritesData = await SupabaseService.getFavorites(userEmail);
+    
+    // Chuyển đổi từ dynamic list sang Movie list
+    final movies = favoritesData.map((item) => Movie(
+      id: item['movie_id'] ?? '',
+      title: item['title'] ?? '',
+      posterUrl: item['poster_url'] ?? '',
+      rating: 0,
+      genres: const [],
+      duration: 'Không rõ',
+      trailerUrl: '',
+    )).toList();
+    
     setState(() {
-      _favoriteMovies = movies;
+      _favoriteMovies = movies.cast<Movie>();
       _isLoading = false;
     });
   }

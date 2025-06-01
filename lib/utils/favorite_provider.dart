@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import '../database/favorite_database.dart';
+import '../utils/supabase_service.dart';
+import '../models/movie.dart';
 
 class FavoriteProvider extends ChangeNotifier {
   final Map<String, Set<String>> _userFavorites = {};
 
   bool isFavorite(String movieId, [String userEmail = '']) {
-    loadFavorites(userEmail);
     final favorites = _userFavorites[userEmail] ?? {};
     return favorites.contains(movieId);
   }
@@ -19,24 +19,40 @@ class FavoriteProvider extends ChangeNotifier {
     final isFav = isFavorite(movieId, userEmail);
 
     if (isFav) {
-      await FavoriteDatabase.removeFavorite(userEmail, movieId);
-      _userFavorites[userEmail]?.remove(movieId);
+      final result = await SupabaseService.removeFavorite(userEmail, movieId);
+      if (result) {
+        _userFavorites[userEmail]?.remove(movieId);
+      }
     } else {
-      await FavoriteDatabase.addFavorite(
+      final result = await SupabaseService.addFavorite(
         userEmail: userEmail,
         movieId: movieId,
         title: title,
         posterUrl: posterUrl,
       );
-      _userFavorites.putIfAbsent(userEmail, () => {}).add(movieId);
+      if (result) {
+        _userFavorites.putIfAbsent(userEmail, () => {}).add(movieId);
+      }
     }
 
     notifyListeners();
   }
 
   Future<void> loadFavorites(String userEmail) async {
-    final favorites = await FavoriteDatabase.getFavorites(userEmail);
-    _userFavorites[userEmail] = favorites.map((movie) => movie.id).toSet();
+    final favorites = await SupabaseService.getFavorites(userEmail);
+    
+    // Chuyển đổi từ dynamic list sang Movie list
+    final movies = favorites.map((item) => Movie(
+      id: item['movie_id'] ?? '',
+      title: item['title'] ?? '',
+      posterUrl: item['poster_url'] ?? '',
+      rating: 0,
+      genres: const [],
+      duration: 'Không rõ',
+      trailerUrl: '',
+    )).toList();
+    
+    _userFavorites[userEmail] = movies.map((movie) => movie.id).toSet();
     notifyListeners();
   }
 }

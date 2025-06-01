@@ -20,4 +20,12 @@ class AuthProvider with ChangeNotifier {
     // Notify listeners about the change
     notifyListeners();
   }
+  
+  // Update user avatar
+  void updateAvatar(String? avatarUrl) {
+    if (_user != null) {
+      _user!.updateAvatarUrl(avatarUrl);
+      notifyListeners();
+    }
+  }
 }

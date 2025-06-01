@@ -2,8 +2,9 @@ class User {
   final int? id;
   final String email;
   final String password;
+  String? avatarUrl;
 
-  User({this.id, required this.email, required this.password});
+  User({this.id, required this.email, required this.password, this.avatarUrl});
 
   Map<String, dynamic> toMap() => {
         'id': id,
@@ -16,4 +17,9 @@ class User {
         email: map['email'],
         password: map['password'],
       );
+
+  // Add a method to update avatar URL
+  void updateAvatarUrl(String? url) {
+    avatarUrl = url;
+  }
 }

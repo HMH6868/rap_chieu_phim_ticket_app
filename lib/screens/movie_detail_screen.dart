@@ -4,7 +4,7 @@ import '../models/movie.dart';
 import 'seat_selection_screen.dart';
 import 'trailer_player_screen.dart';
 import '../utils/auth_provider.dart';
-import '../database/favorite_database.dart';
+import '../utils/supabase_service.dart';
 
 class MovieDetailScreen extends StatelessWidget {
   final Movie movie;
@@ -96,7 +96,7 @@ class MovieDetailScreen extends StatelessWidget {
                   final userEmail =
                       context.read<AuthProvider>().user?.email ?? '';
                   return FutureBuilder<bool>(
-                    future: FavoriteDatabase.isFavorite(userEmail, movie.id),
+                    future: SupabaseService.isFavorite(userEmail, movie.id),
                     builder: (context, snapshot) {
                       final isFavorite = snapshot.data ?? false;
                       return IconButton(
@@ -109,14 +109,14 @@ class MovieDetailScreen extends StatelessWidget {
                         ),
                         onPressed: () async {
                           if (isFavorite) {
-                            await FavoriteDatabase.removeFavorite(
+                            await SupabaseService.removeFavorite(
                                 userEmail, movie.id);
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                   content: Text('Đã xoá khỏi yêu thích')),
                             );
                           } else {
-                            await FavoriteDatabase.addFavorite(
+                            await SupabaseService.addFavorite(
                               userEmail: userEmail,
                               movieId: movie.id,
                               title: movie.title,
