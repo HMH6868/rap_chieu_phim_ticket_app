@@ -593,25 +593,47 @@ class SupabaseService {
   }
   
   // TICKETS MANAGEMENT
-  
-  // Insert new ticket
-  static Future<bool> insertTicket(Map<String, dynamic> ticketData) async {
+
+  // Book a ticket using the new, final stored procedure
+  static Future<Map<String, dynamic>> bookTicket(Map<String, dynamic> ticketData) async {
     try {
       final user = _supabase.auth.currentUser;
       if (user == null) {
-        debugPrint('Cannot insert ticket: User not logged in');
-        return false;
+        return {'success': false, 'message': 'Người dùng chưa đăng nhập.'};
       }
-      
-      // Add user_id to ticket data
-      ticketData['user_id'] = user.id;
-      ticketData['created_at'] = DateTime.now().toIso8601String();
-      
-      await _supabase.from('tickets').insert(ticketData);
-      return true;
+
+      final response = await _supabase.rpc('book_ticket_final', params: {
+        'p_user_id': user.id,
+        'p_user_email': user.email,
+        'p_movie_id': ticketData['movie_id'],
+        'p_movie_title': ticketData['movie_title'],
+        'p_poster_url': ticketData['poster_url'],
+        'p_seats': ticketData['seats'],
+        'p_total_amount': ticketData['total_amount'],
+        'p_date_time': ticketData['date_time'],
+        'p_theater': ticketData['theater'],
+      });
+
+      return Map<String, dynamic>.from(response);
+
     } catch (e) {
-      debugPrint('Error inserting ticket: $e');
-      return false;
+      debugPrint('Error calling book_ticket_final function: $e');
+      return {'success': false, 'message': 'Đã xảy ra lỗi không mong muốn. Vui lòng thử lại.'};
+    }
+  }
+
+  // Get booked seats for a specific showtime using the new function
+  static Future<List<String>> getBookedSeats(String movieId, DateTime showtime) async {
+    try {
+      final response = await _supabase.rpc('get_booked_seats', params: {
+        'p_movie_id': movieId,
+        'p_date_time': showtime.toIso8601String(),
+      });
+      // The response is a list of strings (seat labels)
+      return List<String>.from(response ?? []);
+    } catch (e) {
+      debugPrint('Error calling get_booked_seats function: $e');
+      return [];
     }
   }
   

@@ -43,32 +43,54 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   Future<void> _processPayment() async {
     setState(() => _isProcessing = true);
-    await Future.delayed(const Duration(seconds: 2));
 
     if (!mounted) return;
 
     final userEmail = context.read<AuthProvider>().user?.email ?? '';
+    final ticketProvider = context.read<TicketProvider>();
 
-    await context.read<TicketProvider>().addTicket(
-          movie: widget.movie,
-          selectedSeats: widget.selectedSeats,
-          totalAmount: widget.totalAmount,
-          userEmail: userEmail,
-          dateTime: widget.selectedDateTime,
-        );
+    final result = await ticketProvider.addTicket(
+      movie: widget.movie,
+      selectedSeats: widget.selectedSeats,
+      totalAmount: widget.totalAmount,
+      userEmail: userEmail,
+      dateTime: widget.selectedDateTime,
+    );
 
     if (!mounted) return;
 
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => TicketSuccessScreen(
-          movie: widget.movie,
-          selectedSeats: widget.selectedSeats,
-          totalAmount: widget.totalAmount,
+    setState(() => _isProcessing = false);
+
+    if (result['success'] == true) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => TicketSuccessScreen(
+            movie: widget.movie,
+            selectedSeats: widget.selectedSeats,
+            totalAmount: widget.totalAmount,
+          ),
         ),
-      ),
-    );
+        (route) => route.isFirst, // Xóa tất cả các route trước đó cho đến màn hình chính
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Đặt vé không thành công'),
+          content: Text(result['message'] ?? 'Đã có lỗi xảy ra.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Đóng dialog
+                Navigator.of(context).pop(); // Quay lại màn hình chọn ghế
+              },
+              child: const Text('Chọn lại ghế'),
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   @override

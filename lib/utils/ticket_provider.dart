@@ -28,7 +28,7 @@ class TicketProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addTicket({
+  Future<Map<String, dynamic>> addTicket({
     required Movie movie,
     required List<String> selectedSeats,
     required double totalAmount,
@@ -45,13 +45,13 @@ class TicketProvider extends ChangeNotifier {
       'date_time': (dateTime ?? DateTime.now()).toIso8601String(),
       'user_email': userEmail,
       'theater': theater,
-      'status': 'active',
     };
 
-    final success = await SupabaseService.insertTicket(ticketData);
-    if (success) {
+    final result = await SupabaseService.bookTicket(ticketData);
+    if (result['success'] == true) {
       await loadTickets(userEmail);
     }
+    return result;
   }
 
   Future<void> cancelTicket(int id, String userEmail) async {

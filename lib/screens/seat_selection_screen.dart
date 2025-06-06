@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../models/movie.dart';
 import 'payment_screen.dart';
+import '../utils/supabase_service.dart';
 
 class SeatSelectionScreen extends StatefulWidget {
   final Movie movie;
@@ -17,6 +18,7 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
   final double _ticketPrice = 90000;
 
   final _supabase = Supabase.instance.client;
+  RealtimeChannel? _ticketChannel;
   List<String> _bookedSeats = [];
   bool _isLoadingSeats = false;
 
@@ -58,6 +60,53 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
     }).toList();
   }
 
+  @override
+  void initState() {
+    super.initState();
+    if (widget.movie.id.isNotEmpty) {
+      _setupTicketChannel();
+    }
+  }
+
+  @override
+  void dispose() {
+    _ticketChannel?.unsubscribe();
+    super.dispose();
+  }
+
+  void _setupTicketChannel() {
+    // Lắng nghe các thay đổi trên bảng showtime_seats
+    _ticketChannel = _supabase.channel('public:showtime_seats');
+    _ticketChannel!.onPostgresChanges(
+      event: PostgresChangeEvent.insert,
+      schema: 'public',
+      table: 'showtime_seats',
+      filter: PostgresChangeFilter(
+        type: PostgresChangeFilterType.eq,
+        column: 'movie_id',
+        value: widget.movie.id,
+      ),
+      callback: (payload) {
+        print('Realtime event received for showtime_seats: $payload');
+        if (mounted && _selectedDate != null && _selectedTime != null) {
+          final newSeat = payload.newRecord;
+          final showtime = DateTime.parse(newSeat['showtime']);
+          final selectedDateTime = DateTime(
+            _selectedDate!.year,
+            _selectedDate!.month,
+            _selectedDate!.day,
+            int.parse(_selectedTime!.split(':')[0]),
+            int.parse(_selectedTime!.split(':')[1]),
+          );
+          // Nếu sự kiện real-time dành cho đúng suất chiếu đang xem, hãy cập nhật lại danh sách ghế
+          if (showtime.isAtSameMomentAs(selectedDateTime)) {
+            _fetchBookedSeats();
+          }
+        }
+      },
+    ).subscribe();
+  }
+
   String _getSeatLabel(int row, int col) {
     final rowLabel = String.fromCharCode(65 + row);
     final colLabel = col + 1;
@@ -86,7 +135,6 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
 
     setState(() {
       _isLoadingSeats = true;
-      _bookedSeats = [];
     });
 
     try {
@@ -98,26 +146,13 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
         int.parse(_selectedTime!.split(':')[1]),
       );
 
-      final response = await _supabase
-          .from('tickets')
-          .select('seats')
-          .eq('movie_id', widget.movie.id.toString())
-          .eq('date_time', selectedDateTime.toIso8601String());
+      // Gọi hàm RPC mới để lấy danh sách ghế đã đặt
+      final newBookedSeats = await SupabaseService.getBookedSeats(widget.movie.id, selectedDateTime);
 
       if (!mounted) return;
 
-      final newBookedSeats = <String>{};
-      if (response.isNotEmpty) {
-        for (final ticket in response) {
-          final seats = ticket['seats'] as List;
-          for (final seat in seats) {
-            newBookedSeats.add(seat.toString());
-          }
-        }
-      }
-
       setState(() {
-        _bookedSeats = newBookedSeats.toList();
+        _bookedSeats = newBookedSeats;
       });
     } catch (e) {
       if (mounted) {
