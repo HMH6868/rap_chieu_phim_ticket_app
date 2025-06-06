@@ -26,7 +26,7 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
   DateTime? _selectedDate;
   String? _selectedTime;
 
-  final List<String> _availableTimes = [
+  final List<String> _allAvailableTimes = [
     '10:00',
     '12:30',
     '15:00',
@@ -34,6 +34,29 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
     '20:00',
     '22:30',
   ];
+
+  List<String> _getFilteredAvailableTimes() {
+    if (_selectedDate == null) {
+      return [];
+    }
+
+    final now = DateTime.now();
+    final isToday = _selectedDate!.year == now.year &&
+        _selectedDate!.month == now.month &&
+        _selectedDate!.day == now.day;
+
+    if (!isToday) {
+      return _allAvailableTimes;
+    }
+
+    return _allAvailableTimes.where((time) {
+      final parts = time.split(':');
+      final hour = int.parse(parts[0]);
+      final minute = int.parse(parts[1]);
+      final showtime = DateTime(now.year, now.month, now.day, hour, minute);
+      return showtime.isAfter(now);
+    }).toList();
+  }
 
   String _getSeatLabel(int row, int col) {
     final rowLabel = String.fromCharCode(65 + row);
@@ -288,7 +311,7 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                   Wrap(
                     spacing: 8,
                     runSpacing: 8,
-                    children: _availableTimes.map((time) {
+                    children: _getFilteredAvailableTimes().map((time) {
                       final isSelected = _selectedTime == time;
                       return GestureDetector(
                         onTap: () {
