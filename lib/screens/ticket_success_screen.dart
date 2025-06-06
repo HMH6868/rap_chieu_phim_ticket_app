@@ -224,10 +224,12 @@ class TicketSuccessScreen extends StatelessWidget {
                           elevation: 0,
                         ),
                         onPressed: () {
-                          Navigator.of(context).pushAndRemoveUntil(
+                          // Điều hướng đến TicketScreen và yêu cầu hiển thị nút back
+                          Navigator.push(
+                            context,
                             MaterialPageRoute(
-                                builder: (context) => const TicketScreen()),
-                            (route) => route.isFirst,
+                              builder: (context) => const TicketScreen(showBackButton: true),
+                            ),
                           );
                         },
                         child: const Text(
