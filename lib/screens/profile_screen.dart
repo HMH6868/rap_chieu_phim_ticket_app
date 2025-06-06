@@ -306,7 +306,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         'icon': Icons.confirmation_number_outlined,
         'title': 'Vé của tôi',
         'subtitle': 'Xem vé đã đặt và lịch sử',
-        'route': const TicketScreen(),
+        'route': const TicketScreen(showBackButton: true),
       },
       {
         'icon': Icons.favorite_border,
@@ -786,4 +786,3 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
-

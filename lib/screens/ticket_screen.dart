@@ -7,7 +7,9 @@ import 'main_screen.dart';
 import 'ticket_detail_screen.dart';
 
 class TicketScreen extends StatefulWidget {
-  const TicketScreen({super.key});
+  final bool showBackButton;
+
+  const TicketScreen({super.key, this.showBackButton = false});
 
   @override
   State<TicketScreen> createState() => _TicketScreenState();
@@ -73,13 +75,13 @@ class _TicketScreenState extends State<TicketScreen> {
                   pinned: true,
                   backgroundColor: isDark ? Colors.grey[900] : Colors.white,
                   elevation: 0,
-                  leading: IconButton(
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: primaryColor,
-                    ),
-                    onPressed: () => Navigator.pop(context),
-                  ),
+                  leading: widget.showBackButton
+                      ? IconButton(
+                          icon: Icon(Icons.arrow_back, color: primaryColor),
+                          onPressed: () => Navigator.of(context).pop(),
+                        )
+                      : null,
+                  automaticallyImplyLeading: widget.showBackButton,
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

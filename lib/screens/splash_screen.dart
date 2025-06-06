@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:provider/provider.dart';
+import '../utils/auth_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -39,9 +42,25 @@ class _SplashScreenState extends State<SplashScreen>
 
     _animationController.forward();
 
-    Timer(const Duration(seconds: 3), () {
+    _redirect();
+  }
+
+  Future<void> _redirect() async {
+    // Đợi một chút để animation chạy
+    await Future.delayed(const Duration(seconds: 3));
+
+    if (!mounted) return;
+
+    final session = Supabase.instance.client.auth.currentSession;
+    final authProvider = context.read<AuthProvider>();
+
+    if (session != null) {
+      // Nếu có session, cố gắng tải thông tin người dùng
+      await authProvider.loadUserProfile();
       Navigator.pushReplacementNamed(context, '/main');
-    });
+    } else {
+      Navigator.pushReplacementNamed(context, '/login');
+    }
   }
 
   @override
