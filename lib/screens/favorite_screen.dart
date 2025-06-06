@@ -38,6 +38,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       genres: const [],
       duration: 'Không rõ',
       trailerUrl: '',
+      overview: '', // Thêm giá trị mặc định cho overview
     )).toList();
     
     setState(() {

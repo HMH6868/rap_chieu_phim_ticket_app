@@ -6,6 +6,7 @@ class Movie {
   final List<String> genres;
   final String duration;
   final String trailerUrl;
+  final String overview;
 
   Movie({
     required this.id,
@@ -15,6 +16,7 @@ class Movie {
     required this.genres,
     required this.duration,
     required this.trailerUrl,
+    required this.overview,
   });
 
   factory Movie.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,7 @@ class Movie {
       genres: List<String>.from(json['genres'] ?? []),
       duration: json['duration'] ?? 'Không rõ',
       trailerUrl: json['trailer_url'] ?? '',
+      overview: json['overview'] ?? 'Nội dung phim đang cập nhật...',
     );
   }
 }

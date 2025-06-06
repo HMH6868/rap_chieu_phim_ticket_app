@@ -174,9 +174,9 @@ class MovieDetailScreen extends StatelessWidget {
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
-                  const Text(
-                    'Nội dung phim đang cập nhật...',
-                    style: TextStyle(fontSize: 16, height: 1.5),
+                  Text(
+                    movie.overview,
+                    style: const TextStyle(fontSize: 16, height: 1.5),
                   ),
                   const SizedBox(height: 24),
                   const Text('Đánh giá',

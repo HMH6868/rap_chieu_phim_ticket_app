@@ -9,15 +9,7 @@ class MovieService {
     final List<dynamic> data = json.decode(response);
 
     return data
-        .map((json) => Movie(
-              id: json['id'] ?? '',
-              title: json['title'] ?? '',
-              posterUrl: json['poster_url'] ?? '',
-              rating: (json['vote_average'] ?? 0).toDouble(),
-              genres: List<String>.from(json['genres'] ?? []),
-              duration: json['duration'] ?? 'Không rõ',
-              trailerUrl: json['trailer_url'] ?? '',
-            ))
+        .map((json) => Movie.fromJson(json))
         .toList();
   }
 }

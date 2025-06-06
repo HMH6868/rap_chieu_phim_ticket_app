@@ -50,6 +50,7 @@ class FavoriteProvider extends ChangeNotifier {
       genres: const [],
       duration: 'Không rõ',
       trailerUrl: '',
+      overview: '', // Thêm giá trị mặc định cho overview
     )).toList();
     
     _userFavorites[userEmail] = movies.map((movie) => movie.id).toSet();
