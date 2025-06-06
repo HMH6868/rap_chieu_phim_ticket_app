@@ -99,7 +99,7 @@ class _SplashScreenState extends State<SplashScreen>
                     ),
                     const SizedBox(height: 24),
                     const Text(
-                      'CINEMA',
+                      'HNP CINEMA',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 28,
@@ -109,7 +109,7 @@ class _SplashScreenState extends State<SplashScreen>
                     ),
                     const SizedBox(height: 8),
                     const Text(
-                      'Xem Phim Ngay',
+                      'Đặt Vé Xem Phim Ngay',
                       style: TextStyle(color: Colors.white70, fontSize: 16),
                     ),
                   ],
