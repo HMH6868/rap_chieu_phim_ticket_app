@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'dart:math' as math;
+import 'dart:ui' as ui;
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import '../models/ticket.dart';
 import '../utils/ticket_provider.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +28,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> with SingleTick
   late TabController _tabController;
   bool _isAnimating = false;
   final List<String> _tabs = ['Vé', 'Chi tiết'];
+  final GlobalKey _qrKey = GlobalKey();
 
   // Format price with thousand separator dots
   String _formatPrice(double price) {
@@ -59,13 +65,54 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> with SingleTick
   }
 
   Future<void> _shareTicket() async {
-    // Here you would implement the sharing functionality
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Tính năng chia sẻ sẽ sớm được cập nhật'),
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
+    try {
+      // 1. Chụp ảnh Widget QR Code
+      RenderRepaintBoundary boundary = _qrKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+      ui.Image image = await boundary.toImage(pixelRatio: 3.0);
+      ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+      Uint8List pngBytes = byteData!.buffer.asUint8List();
+
+      // 2. Lưu ảnh vào tệp tạm thời
+      final tempDir = await getTemporaryDirectory();
+      final file = await File('${tempDir.path}/qr_ticket.png').create();
+      await file.writeAsBytes(pngBytes);
+
+      // 3. Chuẩn bị nội dung văn bản
+      final date = widget.ticket.dateTime;
+      final day = date.day.toString().padLeft(2, '0');
+      final month = date.month.toString().padLeft(2, '0');
+      final year = date.year;
+      final hour = date.hour.toString().padLeft(2, '0');
+      final minute = date.minute.toString().padLeft(2, '0');
+      final formattedDate = '$day/$month/$year';
+      final formattedTime = '$hour:$minute';
+
+      final String ticketInfo = '''
+🎉 Bạn có vé xem phim! 🎉
+
+🎬 Phim: ${widget.ticket.movieTitle}
+📅 Ngày: $formattedDate
+🕒 Giờ: $formattedTime
+📍 Rạp: ${widget.ticket.theater}
+💺 Ghế: ${widget.ticket.seats.join(', ')}
+
+Mã vé của bạn là: ${_getTicketCode()}
+Hãy đến rạp và tận hưởng bộ phim nhé!
+''';
+
+      // 4. Chia sẻ cả văn bản và tệp ảnh
+      await Share.shareXFiles(
+        [XFile(file.path)],
+        text: ticketInfo,
+        subject: 'Vé xem phim: ${widget.ticket.movieTitle}',
+      );
+
+    } catch (e) {
+      print('Lỗi khi chia sẻ vé: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Không thể chia sẻ vé. Vui lòng thử lại.')),
+      );
+    }
   }
 
   Future<void> _confirmCancelTicket() async {
@@ -486,23 +533,26 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> with SingleTick
                                     padding: const EdgeInsets.all(24),
                                     child: Column(
                                       children: [
-                                        Container(
-                                          padding: const EdgeInsets.all(16),
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.circular(16),
-                                          ),
-                                          child: QrImageView(
-                                            data: qrData,
-                                            version: QrVersions.auto,
-                                            size: 200,
-                                            eyeStyle: const QrEyeStyle(
-                                              eyeShape: QrEyeShape.square,
-                                              color: Colors.black,
+                                        RepaintBoundary(
+                                          key: _qrKey,
+                                          child: Container(
+                                            padding: const EdgeInsets.all(16),
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.circular(16),
                                             ),
-                                            dataModuleStyle: const QrDataModuleStyle(
-                                              dataModuleShape: QrDataModuleShape.square,
-                                              color: Colors.black,
+                                            child: QrImageView(
+                                              data: qrData,
+                                              version: QrVersions.auto,
+                                              size: 200,
+                                              eyeStyle: const QrEyeStyle(
+                                                eyeShape: QrEyeShape.square,
+                                                color: Colors.black,
+                                              ),
+                                              dataModuleStyle: const QrDataModuleStyle(
+                                                dataModuleShape: QrDataModuleShape.square,
+                                                color: Colors.black,
+                                              ),
                                             ),
                                           ),
                                         ),
