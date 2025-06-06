@@ -42,6 +42,10 @@ class _TicketScreenState extends State<TicketScreen> {
   Widget build(BuildContext context) {
     final ticketProvider = context.watch<TicketProvider>();
     final allTickets = ticketProvider.tickets;
+    
+    // Sắp xếp danh sách vé theo `dateTime` giảm dần (mới nhất trước)
+    allTickets.sort((a, b) => b.dateTime.compareTo(a.dateTime));
+
     final tickets = _filterStatus == 'Tất cả'
         ? allTickets
         : allTickets.where((t) => getTicketStatus(t) == _filterStatus).toList();

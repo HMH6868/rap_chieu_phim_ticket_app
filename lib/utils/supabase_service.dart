@@ -649,7 +649,7 @@ class SupabaseService {
       final result = await _supabase.from('tickets')
         .select()
         .eq('user_id', user.id)
-        .order('created_at', ascending: false);
+        .order('created_at', ascending: false); // Sắp xếp giảm dần để vé mới nhất ở đầu
         
       return result;
     } catch (e) {
