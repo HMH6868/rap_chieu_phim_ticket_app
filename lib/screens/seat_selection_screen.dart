@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../models/movie.dart';
 import 'payment_screen.dart';
 
@@ -15,9 +16,12 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
   final List<String> _selectedSeats = [];
   final double _ticketPrice = 90000;
 
+  final _supabase = Supabase.instance.client;
+  List<String> _bookedSeats = [];
+  bool _isLoadingSeats = false;
+
   final List<List<int>> _seatLayout =
       List.generate(7, (_) => List.filled(8, 1));
-  final List<String> _bookedSeats = ['A2', 'A3', 'C4', 'E5', 'F6', 'G7'];
 
   DateTime? _selectedDate;
   String? _selectedTime;
@@ -52,6 +56,59 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
         _selectedSeats.add(seatLabel);
       }
     });
+  }
+
+  Future<void> _fetchBookedSeats() async {
+    if (_selectedDate == null || _selectedTime == null) return;
+
+    setState(() {
+      _isLoadingSeats = true;
+      _bookedSeats = [];
+    });
+
+    try {
+      final selectedDateTime = DateTime(
+        _selectedDate!.year,
+        _selectedDate!.month,
+        _selectedDate!.day,
+        int.parse(_selectedTime!.split(':')[0]),
+        int.parse(_selectedTime!.split(':')[1]),
+      );
+
+      final response = await _supabase
+          .from('tickets')
+          .select('seats')
+          .eq('movie_id', widget.movie.id.toString())
+          .eq('date_time', selectedDateTime.toIso8601String());
+
+      if (!mounted) return;
+
+      final newBookedSeats = <String>{};
+      if (response.isNotEmpty) {
+        for (final ticket in response) {
+          final seats = ticket['seats'] as List;
+          for (final seat in seats) {
+            newBookedSeats.add(seat.toString());
+          }
+        }
+      }
+
+      setState(() {
+        _bookedSeats = newBookedSeats.toList();
+      });
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Lỗi khi tải danh sách ghế: ${e.toString()}')),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoadingSeats = false;
+        });
+      }
+    }
   }
 
   // Format price with thousand separator dots
@@ -168,7 +225,12 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                       
                       return GestureDetector(
                         onTap: () {
-                          setState(() => _selectedDate = date);
+                          setState(() {
+                            _selectedDate = date;
+                            _selectedTime = null;
+                            _bookedSeats = [];
+                            _selectedSeats.clear();
+                          });
                         },
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 200),
@@ -230,7 +292,11 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                       final isSelected = _selectedTime == time;
                       return GestureDetector(
                         onTap: () {
-                          setState(() => _selectedTime = time);
+                          setState(() {
+                            _selectedTime = time;
+                            _selectedSeats.clear();
+                          });
+                          _fetchBookedSeats();
                         },
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 200),
@@ -319,89 +385,98 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                     ),
                     
                     // Seats
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Column(
-                        children: List.generate(_seatLayout.length, (row) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 6.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  width: 20,
-                                  child: Text(
-                                    String.fromCharCode(65 + row),
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: isDark ? Colors.white70 : Colors.black54,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                const SizedBox(width: 4),
-                                ...List.generate(_seatLayout[row].length, (col) {
-                                  final isBooked = _isSeatBooked(row, col);
-                                  final isSelected = _isSeatSelected(row, col);
-                                  
-                                  return GestureDetector(
-                                    onTap: isBooked
-                                        ? null
-                                        : () => _toggleSeatSelection(row, col),
-                                    child: AnimatedContainer(
-                                      duration: const Duration(milliseconds: 200),
-                                      width: 36,
-                                      height: 36,
-                                      margin: const EdgeInsets.symmetric(horizontal: 2),
-                                      decoration: BoxDecoration(
-                                        color: isBooked
-                                            ? Colors.grey
-                                            : isSelected
-                                                ? primaryColor
-                                                : isDark ? Colors.grey[700] : Colors.white,
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(8),
-                                          topRight: Radius.circular(8),
-                                          bottomLeft: Radius.circular(3),
-                                          bottomRight: Radius.circular(3),
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        if (_isLoadingSeats)
+                          CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
+                          ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Column(
+                            children: List.generate(_seatLayout.length, (row) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 6.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: 20,
+                                      child: Text(
+                                        String.fromCharCode(65 + row),
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: isDark ? Colors.white70 : Colors.black54,
                                         ),
-                                        border: Border.all(
-                                          color: isSelected || isBooked
-                                              ? Colors.transparent
-                                              : Colors.grey,
-                                          width: 1,
-                                        ),
-                                        boxShadow: isSelected || isBooked
-                                            ? [
-                                                BoxShadow(
-                                                  color: (isSelected ? primaryColor : Colors.grey)
-                                                      .withOpacity(0.3),
-                                                  blurRadius: 4,
-                                                  offset: const Offset(0, 2),
-                                                ),
-                                              ]
-                                            : null,
+                                        textAlign: TextAlign.center,
                                       ),
-                                      child: Center(
-                                        child: Text(
-                                          '${col + 1}',
-                                          style: TextStyle(
-                                            color: isBooked || isSelected
-                                                ? Colors.white
-                                                : isDark ? Colors.white70 : Colors.black87,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
+                                    ),
+                                    const SizedBox(width: 4),
+                                    ...List.generate(_seatLayout[row].length, (col) {
+                                      final isBooked = _isSeatBooked(row, col);
+                                      final isSelected = _isSeatSelected(row, col);
+                                      
+                                      return GestureDetector(
+                                        onTap: isBooked || _isLoadingSeats
+                                            ? null
+                                            : () => _toggleSeatSelection(row, col),
+                                        child: AnimatedContainer(
+                                          duration: const Duration(milliseconds: 200),
+                                          width: 36,
+                                          height: 36,
+                                          margin: const EdgeInsets.symmetric(horizontal: 2),
+                                          decoration: BoxDecoration(
+                                            color: isBooked
+                                                ? Colors.grey
+                                                : isSelected
+                                                    ? primaryColor
+                                                    : isDark ? Colors.grey[700] : Colors.white,
+                                            borderRadius: const BorderRadius.only(
+                                              topLeft: Radius.circular(8),
+                                              topRight: Radius.circular(8),
+                                              bottomLeft: Radius.circular(3),
+                                              bottomRight: Radius.circular(3),
+                                            ),
+                                            border: Border.all(
+                                              color: isSelected || isBooked
+                                                  ? Colors.transparent
+                                                  : Colors.grey,
+                                              width: 1,
+                                            ),
+                                            boxShadow: isSelected || isBooked
+                                                ? [
+                                                    BoxShadow(
+                                                      color: (isSelected ? primaryColor : Colors.grey)
+                                                          .withOpacity(0.3),
+                                                      blurRadius: 4,
+                                                      offset: const Offset(0, 2),
+                                                    ),
+                                                  ]
+                                                : null,
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              '${col + 1}',
+                                              style: TextStyle(
+                                                color: isBooked || isSelected
+                                                    ? Colors.white
+                                                    : isDark ? Colors.white70 : Colors.black87,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                  );
-                                }),
-                              ],
-                            ),
-                          );
-                        }),
-                      ),
+                                      );
+                                    }),
+                                  ],
+                                ),
+                              );
+                            }),
+                          ),
+                        ),
+                      ],
                     ),
                     
                     // Increase bottom spacing to avoid overlap with the bottom sheet
