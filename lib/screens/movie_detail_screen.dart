@@ -1,15 +1,111 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../models/movie.dart';
+import '../models/review.dart';
 import 'seat_selection_screen.dart';
 import 'trailer_player_screen.dart';
 import '../utils/auth_provider.dart';
 import '../utils/supabase_service.dart';
 
-class MovieDetailScreen extends StatelessWidget {
+class MovieDetailScreen extends StatefulWidget {
   final Movie movie;
 
   const MovieDetailScreen({super.key, required this.movie});
+
+  @override
+  State<MovieDetailScreen> createState() => _MovieDetailScreenState();
+}
+
+class _MovieDetailScreenState extends State<MovieDetailScreen> {
+  late Future<List<Review>> _reviewsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _reviewsFuture = _fetchReviews();
+  }
+
+  Future<List<Review>> _fetchReviews() async {
+    final reviewsData = await SupabaseService.getReviews(widget.movie.id);
+    return reviewsData.map((json) => Review.fromJson(json)).toList();
+  }
+
+  void _refreshReviews() {
+    setState(() {
+      _reviewsFuture = _fetchReviews();
+    });
+  }
+
+  void _showReviewDialog() {
+    final reviewController = TextEditingController();
+    double userRating = 3.0;
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Viết đánh giá'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RatingBar.builder(
+                initialRating: userRating,
+                minRating: 1,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                itemBuilder: (context, _) => const Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                onRatingUpdate: (rating) {
+                  userRating = rating;
+                },
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: reviewController,
+                decoration: const InputDecoration(
+                  hintText: 'Nhập bình luận của bạn...',
+                  border: OutlineInputBorder(),
+                ),
+                maxLines: 3,
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Hủy'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final success = await SupabaseService.addReview(
+                  movieId: widget.movie.id,
+                  rating: userRating,
+                  comment: reviewController.text,
+                );
+                if (success) {
+                  Navigator.pop(context);
+                  _refreshReviews();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Đã gửi đánh giá!')),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Lỗi khi gửi đánh giá.')),
+                  );
+                }
+              },
+              child: const Text('Gửi'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +121,7 @@ class MovieDetailScreen extends StatelessWidget {
               children: [
                 Positioned.fill(
                   child: Image.network(
-                    movie.posterUrl,
+                    widget.movie.posterUrl,
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) => Container(
                       color: isDark ? Colors.grey[800] : Colors.grey[300],
@@ -61,8 +157,8 @@ class MovieDetailScreen extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) => TrailerPlayerScreen(
-                              movieTitle: movie.title,
-                              trailerUrl: movie.trailerUrl,
+                              movieTitle: widget.movie.title,
+                              trailerUrl: widget.movie.trailerUrl,
                             ),
                           ),
                         );
@@ -96,7 +192,7 @@ class MovieDetailScreen extends StatelessWidget {
                   final userEmail =
                       context.read<AuthProvider>().user?.email ?? '';
                   return FutureBuilder<bool>(
-                    future: SupabaseService.isFavorite(userEmail, movie.id),
+                    future: SupabaseService.isFavorite(userEmail, widget.movie.id),
                     builder: (context, snapshot) {
                       final isFavorite = snapshot.data ?? false;
                       return IconButton(
@@ -110,7 +206,7 @@ class MovieDetailScreen extends StatelessWidget {
                         onPressed: () async {
                           if (isFavorite) {
                             await SupabaseService.removeFavorite(
-                                userEmail, movie.id);
+                                userEmail, widget.movie.id);
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                   content: Text('Đã xoá khỏi yêu thích')),
@@ -118,9 +214,9 @@ class MovieDetailScreen extends StatelessWidget {
                           } else {
                             await SupabaseService.addFavorite(
                               userEmail: userEmail,
-                              movieId: movie.id,
-                              title: movie.title,
-                              posterUrl: movie.posterUrl,
+                              movieId: widget.movie.id,
+                              title: widget.movie.title,
+                              posterUrl: widget.movie.posterUrl,
                             );
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -143,24 +239,24 @@ class MovieDetailScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(movie.title,
+                  Text(widget.movie.title,
                       style: Theme.of(context).textTheme.displayLarge),
                   const SizedBox(height: 8),
                   Row(
                     children: [
                       const Icon(Icons.star, color: Colors.amber, size: 20),
                       const SizedBox(width: 4),
-                      Text('${movie.rating}/10',
+                      Text('${widget.movie.rating}/10',
                           style: const TextStyle(fontWeight: FontWeight.bold)),
                       const SizedBox(width: 16),
-                      Text(movie.duration,
+                      Text(widget.movie.duration,
                           style: TextStyle(color: isDark ? Colors.grey[400] : Colors.grey[700])),
                     ],
                   ),
                   const SizedBox(height: 16),
                   Wrap(
                     spacing: 8,
-                    children: movie.genres.map((genre) {
+                    children: widget.movie.genres.map((genre) {
                       return Chip(
                         label: Text(genre,
                             style: const TextStyle(
@@ -175,27 +271,60 @@ class MovieDetailScreen extends StatelessWidget {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
                   Text(
-                    movie.overview,
+                    widget.movie.overview,
                     style: const TextStyle(fontSize: 16, height: 1.5),
                   ),
                   const SizedBox(height: 24),
-                  const Text('Đánh giá',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Đánh giá',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold)),
+                      TextButton.icon(
+                        onPressed: _showReviewDialog,
+                        icon: const Icon(Icons.edit),
+                        label: const Text('Viết đánh giá'),
+                        style: TextButton.styleFrom(
+                          foregroundColor: Colors.red,
+                        ),
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 12),
-                  _buildReviewCard(
-                      'Nguyễn Văn A',
-                      'https://randomuser.me/api/portraits/men/32.jpg',
-                      'Phim rất hay!',
-                      4.5,
-                      isDark),
-                  const SizedBox(height: 12),
-                  _buildReviewCard(
-                      'Trần Thị B',
-                      'https://randomuser.me/api/portraits/women/44.jpg',
-                      'Cốt truyện hấp dẫn!',
-                      4.0,
-                      isDark),
+                  FutureBuilder<List<Review>>(
+                    future: _reviewsFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      if (snapshot.hasError) {
+                        return Center(child: Text('Lỗi: ${snapshot.error}'));
+                      }
+                      final reviews = snapshot.data ?? [];
+                      if (reviews.isEmpty) {
+                        return const Center(
+                            child: Text('Chưa có đánh giá nào.'));
+                      }
+                      return ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: reviews.length,
+                        itemBuilder: (context, index) {
+                          final review = reviews[index];
+                          return _buildReviewCard(
+                            review.userEmail,
+                            review.userAvatarUrl ?? 'https://i.pravatar.cc/150?u=${review.userId}',
+                            review.comment ?? '',
+                            review.rating,
+                            isDark,
+                          );
+                        },
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(height: 12),
+                      );
+                    },
+                  ),
                   const SizedBox(height: 24),
                   const Text('Lịch chiếu',
                       style:
@@ -228,7 +357,7 @@ class MovieDetailScreen extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  SeatSelectionScreen(movie: movie)),
+                                  SeatSelectionScreen(movie: widget.movie)),
                         );
                       },
                       child: const Text('Đặt vé ngay',

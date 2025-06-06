@@ -677,4 +677,54 @@ class SupabaseService {
       return false;
     }
   }
-} 
+
+  // REVIEWS MANAGEMENT
+
+  // Get all reviews for a movie
+  static Future<List<dynamic>> getReviews(String movieId) async {
+    try {
+      final result = await _supabase
+          .from('reviews')
+          .select()
+          .eq('movie_id', movieId)
+          .order('created_at', ascending: false);
+      return result;
+    } catch (e) {
+      debugPrint('Error getting reviews: $e');
+      return [];
+    }
+  }
+
+  // Add a new review
+  static Future<bool> addReview({
+    required String movieId,
+    required double rating,
+    required String comment,
+  }) async {
+    try {
+      final user = _supabase.auth.currentUser;
+      if (user == null) {
+        debugPrint('Cannot add review: User not logged in');
+        return false;
+      }
+
+      final profile = await getUserProfile();
+      final avatarUrl = profile?['avatar_url'];
+
+      await _supabase.from('reviews').insert({
+        'movie_id': movieId,
+        'user_id': user.id,
+        'user_email': user.email!,
+        'user_avatar_url': avatarUrl,
+        'rating': rating,
+        'comment': comment,
+        'created_at': DateTime.now().toIso8601String(),
+      });
+
+      return true;
+    } catch (e) {
+      debugPrint('Error adding review: $e');
+      return false;
+    }
+  }
+}
