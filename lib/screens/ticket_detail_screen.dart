@@ -422,7 +422,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> with SingleTick
                                               const SizedBox(height: 4),
                                               _buildInfoItem(
                                                 Icons.location_on_outlined,
-                                                'HNP Cinema',
+                                                widget.ticket.theater,
                                                 isDark,
                                               ),
                                             ],
@@ -592,7 +592,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> with SingleTick
                                   ),
                                   _buildDetailRow(
                                     'Rạp chiếu',
-                                    'HNP Cinema',
+                                    widget.ticket.theater,
                                     isDark,
                                   ),
                                   _buildDetailRow(
@@ -847,4 +847,4 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> with SingleTick
       ),
     );
   }
-} 
+}
