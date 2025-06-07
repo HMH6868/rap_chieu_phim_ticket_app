@@ -4,6 +4,7 @@ import '../models/movie.dart';
 import '../utils/movie_service.dart';
 import '../widgets/movie_card.dart';
 import 'movie_detail_screen.dart';
+import 'map_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -109,6 +110,17 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text("Trang chủ", style: TextStyle(color: Colors.white)),
         backgroundColor: isDark ? Colors.grey[900] : Colors.red,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.map, color: Colors.white),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const MapScreen()),
+              );
+            },
+          ),
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
