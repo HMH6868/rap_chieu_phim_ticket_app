@@ -7,6 +7,7 @@ import 'seat_selection_screen.dart';
 import 'trailer_player_screen.dart';
 import '../utils/auth_provider.dart';
 import '../utils/supabase_service.dart';
+import '../services/gemini_service.dart';
 
 class MovieDetailScreen extends StatefulWidget {
   final Movie movie;
@@ -19,11 +20,27 @@ class MovieDetailScreen extends StatefulWidget {
 
 class _MovieDetailScreenState extends State<MovieDetailScreen> {
   late Future<List<Review>> _reviewsFuture;
+  String? _movieSummary;
+  bool _isSummaryLoading = true;
 
   @override
   void initState() {
     super.initState();
     _reviewsFuture = _fetchReviews();
+    _fetchMovieSummary();
+  }
+
+  Future<void> _fetchMovieSummary() async {
+    setState(() {
+      _isSummaryLoading = true;
+    });
+    final summary = await GeminiService.getMovieSummary(widget.movie.title);
+    if (mounted) {
+      setState(() {
+        _movieSummary = summary;
+        _isSummaryLoading = false;
+      });
+    }
   }
 
   Future<List<Review>> _fetchReviews() async {
@@ -270,10 +287,12 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
-                  Text(
-                    widget.movie.overview,
-                    style: const TextStyle(fontSize: 16, height: 1.5),
-                  ),
+                  _isSummaryLoading
+                      ? const Center(child: CircularProgressIndicator())
+                      : Text(
+                          _movieSummary ?? widget.movie.overview,
+                          style: const TextStyle(fontSize: 16, height: 1.5),
+                        ),
                   const SizedBox(height: 24),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
